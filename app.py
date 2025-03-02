@@ -54,6 +54,7 @@ with col3:
     if st.button('Skills'):
         st.session_state.section = 'Skills'
 
+
 # Render the selected section
 if st.session_state.section == 'About Me':
     render_about_me()
