@@ -1212,7 +1212,7 @@ def render_about_me():
                     else:
                         vectorizer, tfidf_matrix, corpus = initialize_tfidf_model(questions)
                         ignore, response = is_wasteful_prompt(user_input, vectorizer, tfidf_matrix, corpus, similarity_threshold=0.6)
-                        if not ignore:
+                        if ignore:
                             bot_response = 'Thank you for your question. Please ask anything specific to me'
                         else:
                             bot_response = 'Positive'
