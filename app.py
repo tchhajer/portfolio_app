@@ -520,7 +520,7 @@ def initialize_tfidf_model(var):
     if type(var) == dict:
         corpus = list(blocked_prompts.keys())
     else:
-        corpus = blocked_prompts
+        corpus = questions
     preprocessed_corpus = [preprocess_text(text) for text in corpus]
     
     vectorizer = TfidfVectorizer(min_df=1, analyzer='char_wb', ngram_range=(2, 4))
@@ -550,6 +550,8 @@ def is_wasteful_prompt(user_input, vectorizer, tfidf_matrix, corpus, similarity_
     max_similarity_idx = np.argmax(similarities)
     
     if max_similarity >= similarity_threshold:
+        print("\n\n\n\n\n\n\n\n\n\n")
+        print(max_similarity_idx)
         most_similar_prompt = corpus[max_similarity_idx]
         return True, blocked_prompts[most_similar_prompt]
     
@@ -1211,7 +1213,7 @@ def render_about_me():
                         bot_response = response
                     else:
                         vectorizer, tfidf_matrix, corpus = initialize_tfidf_model(questions)
-                        ignore, response = is_wasteful_prompt(user_input, vectorizer, tfidf_matrix, corpus, similarity_threshold=0.6)
+                        ignore, response = is_wasteful_prompt(user_input, vectorizer, tfidf_matrix, corpus, similarity_threshold=0.2)
                         if ignore:
                             bot_response = 'Thank you for your question. Please ask anything specific to me'
                         else:
