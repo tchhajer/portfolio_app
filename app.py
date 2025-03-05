@@ -11,7 +11,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import re
 from pathlib import Path
 import html
-import markdown
+
 
 # Dictionary of blocked prompts with custom responses
 blocked_prompts = {
