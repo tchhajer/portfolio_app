@@ -10,10 +10,11 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import re
 from pathlib import Path
+import html
+import markdown
 
 # Dictionary of blocked prompts with custom responses
 blocked_prompts = {
-    # Direct disinterest
     "no": "I understand. If you change your mind, I'm here to discuss my work! 😊",
     "not interested": "No problem! Let me know if you change your mind about discussing my work. 💼",
     "don't care": "Understood! Feel free to ask if you ever need professional insights. 🧠",
@@ -552,8 +553,6 @@ def is_wasteful_prompt(user_input, var, similarity_threshold=0.8):
     max_similarity_idx = np.argmax(similarities)
     
     if max_similarity >= similarity_threshold:
-        print("\n\n\n\n\n\n\n\n\n\n")
-        print(max_similarity_idx)
         most_similar_prompt = corpus[max_similarity_idx]
         if type(var) == dict:
             return True, blocked_prompts[most_similar_prompt]
@@ -763,10 +762,23 @@ def ask_bot(input_text, bio_content):
                 {"role": "user", "content": input_text}
             ]
         )
+        print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        print(response.choices[0].message.content)
         return response.choices[0].message.content
     except Exception as e:
         st.error(f"An error occurred: {str(e)}")
         return "I'm having trouble connecting right now. Please try again later."
+
+
+def format_message(role, text):
+    """Formats user and bot messages as HTML."""
+    if role == "user":
+        return f'<div class="message-row user-row"><div class="user-message">{text}</div></div>'
+    else:  # bot message
+        formatted_text = text.replace("\n", "<br>")  # Replace new lines with HTML line breaks
+        return f'<div class="message-row bot-row"><div class="bot-message">{formatted_text}</div></div>'
+
+
 
 #working one 
 def render_about_me():
@@ -786,35 +798,30 @@ def render_about_me():
 
         st.header("Meet VijBot! 🤖")
         
-        # Initialize session state variables
         if "chat_history" not in st.session_state:
             st.session_state.chat_history = [{
                 "role": "bot",
                 "content": "Hi! I'm VijBot, Vijayram's AI assistant. Ask me anything about his skills, experience, projects, or visa status! 🚀"
             }]
         
-        # Add a counter to force re-renders and scrolling
         if "message_counter" not in st.session_state:
             st.session_state.message_counter = 0
         
-        # Track if we need to scroll
         if "should_scroll" not in st.session_state:
             st.session_state.should_scroll = True
         
-        # Construct all chat messages HTML
         chat_messages_html = ""
+
+
         for idx, message in enumerate(st.session_state.chat_history):
+            
             message_id = f"message-{idx}"
             if message["role"] == "user":
-                chat_messages_html += f'<div id="{message_id}" class="message-row user-row"><div class="user-message">{message["content"]}</div></div>'
-            else:
-                chat_messages_html += f'<div id="{message_id}" class="message-row bot-row"><div class="bot-message">{message["content"]}</div></div>'
+                chat_messages_html += f'<div id="{message_id}" class="message-row user-row"><div class="user-message">{html.escape(message["content"])}</div></div>'
+            elif message["role"] == "bot":
+                chat_messages_html += format_message("bot",message["content"])
+                print(chat_messages_html)
         
-        # Create a unique div ID that changes when new messages are added
-        scroll_div_id = f"chat-messages-{st.session_state.message_counter}"
-        last_message_id = f"message-{len(st.session_state.chat_history) - 1}"
-        
-        # Create a container for the chat interface
         chat_container = st.container()
         
         # Render the chat interface
@@ -922,7 +929,7 @@ def render_about_me():
             <div class="chatbot-header">
                 <h4 style="margin:0; font-weight: 500;">Ask VijBot anything about me!</h4>
             </div>
-            <div class="chatbot-messages" id="{scroll_div_id}">
+            <div class="chatbot-messages" id="chat-messages">
                 {chat_messages_html}
                 <div id="scroll-target" class="scroll-to"></div>
             </div>
@@ -985,7 +992,6 @@ def render_about_me():
                     st.session_state.chat_history.append({"role": "user", "content": user_input})
                     with open("assets/output.txt", "a") as file:
                         file.write(user_input + "\n")
-                    # Check if the prompt is wasteful
                     ignore, response = is_wasteful_prompt(user_input, blocked_prompts, similarity_threshold=0.8)
                     if len(user_input.split(" ")) > 15:
                         bot_response = "Whoa, that's a long one! A shorter version might help me respond more effectively."
@@ -994,21 +1000,11 @@ def render_about_me():
                     else:
                         ignore, response = is_wasteful_prompt(user_input, questions, similarity_threshold=0.4)
                         if not ignore:
-                            bot_response = "I’d be happy to help! Please ask me something specific to my work, projects, or experiences."
+                            bot_response = '''I’d be happy to help! Please ask me something specific to my work, projects, or experiences.'''
                         else:
                             bot_response = ask_bot(user_input, bio_content)
-                            # bot_response = "Positive"
 
-                # Add bot response to history
                 st.session_state.chat_history.append({"role": "bot", "content": bot_response})
-                
-                # Increment message counter to force re-render and scrolling
-                st.session_state.message_counter += 1
-                
-                # Set should_scroll flag to true
-                st.session_state.should_scroll = True
-                
-                # Rerun to update the chat display
                 st.rerun()
         
 
