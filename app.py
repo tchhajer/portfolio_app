@@ -14,6 +14,7 @@ from pathlib import Path
 # Dictionary of blocked prompts with custom responses
 blocked_prompts = {
     # Direct disinterest
+    "no": "I understand. If you change your mind, I'm here to discuss my work! 😊",
     "not interested": "No problem! Let me know if you change your mind about discussing my work. 💼",
     "don't care": "Understood! Feel free to ask if you ever need professional insights. 🧠",
     "idc": "IDC = I Do Coding! Ask about my technical skills instead. 💻",
@@ -410,9 +411,8 @@ blocked_prompts = {
     "why exist": "I exist to discuss my creator's work. Ask about it! 🤔",
 }
 
-
 questions = [
-    "hi", "hello", "hey", "heya", "what is your name", "who are you", "what can you do", 
+    "hi", "hello", "hey", "heya", "what is your name", "who are you", "what can you do",
     "what do you know about you", "bye", "thank you", "i am not in a happy mood right now", 
     "can you cheer me up", "tell me about you", "who is you", "your bio", "your background", 
     "introduce you", "contact information", "how can I contact you", "contact details", 
@@ -507,16 +507,24 @@ questions = [
     "do you have experience with IoT", "what is your experience with robotics", 
     "do you like ai", "what programming languages do you know", "what databases do you use", 
     "do you enjoy ai", "what databases have you worked with", "what are your strongest skills", 
-    "why should we hire you?"
+    "why should we hire you?", "interesting", "pytorch", "tensorflow", "scikit-learn", 
+    "airflow", "dbt", "snowflake", "gcp", "aws", "tableau", "sas", "pyspark", "data pipelines", 
+    "data engineering", "data processing", "etl", "salesforce", "dashboard", "interview", 
+    "github", "github contributions", "data analysis", "research software", "project assistant", "UW–Madison Data Science Institute", 
+    "UW–Madison Data Science Institute role", "UW–Madison Data Science Institute tools", "UW–Madison Data Science Institute projects",
+    "UW–Madison Data Science Institute details", "UW–Madison Data Science Institute experience", "UW–Madison Data Science Institute coursework",
+    "University of Wisconsin - Madison", "Madison", "University of Wisconsin", "Research Assistant", "Research Assistant role",
+    "Data Engineer", "Datacurate Technologies", "SMPH", "School of Medicine and Public Health", "School of Medicine and Public Health role",
+    "Universities of Wisconsin System", "Data Analyst", "Redfin Housing Pipeline", "Redfin", "Piepline", "Certifications"
+
 ]
 
 def preprocess_text(text):
     text = text.lower()
-    text = re.sub(r'[^\w\s]', '', text)  # Remove punctuation
+    text = re.sub(r'[^\w\s]', '', text) 
     return text
 
 def initialize_tfidf_model(var):
-    # Get all blocked prompts as corpus
     if type(var) == dict:
         corpus = list(blocked_prompts.keys())
     else:
@@ -528,24 +536,18 @@ def initialize_tfidf_model(var):
     
     return vectorizer, tfidf_matrix, corpus
 
-# Function to check if input is wasteful using both exact match and fuzzy matching
-def is_wasteful_prompt(user_input, vectorizer, tfidf_matrix, corpus, similarity_threshold=0.8):
-    # Use consistent preprocessing for exact match
+
+def is_wasteful_prompt(user_input, var, similarity_threshold=0.8):
+    vectorizer, tfidf_matrix, corpus = initialize_tfidf_model(var)
+
     processed_input = preprocess_text(user_input).strip()
     if processed_input in blocked_prompts:
         return True, blocked_prompts[processed_input]
     
-    # If no exact match, use TF-IDF to check for similar prompts
-    if len(processed_input) < 2:
-        return False, None
-    
-    # Vectorize the input
     user_vector = vectorizer.transform([processed_input])
     
-    # Calculate cosine similarity with all blocked prompts
     similarities = cosine_similarity(user_vector, tfidf_matrix).flatten()
     
-    # Find the most similar prompt
     max_similarity = np.max(similarities)
     max_similarity_idx = np.argmax(similarities)
     
@@ -553,8 +555,10 @@ def is_wasteful_prompt(user_input, vectorizer, tfidf_matrix, corpus, similarity_
         print("\n\n\n\n\n\n\n\n\n\n")
         print(max_similarity_idx)
         most_similar_prompt = corpus[max_similarity_idx]
-        return True, blocked_prompts[most_similar_prompt]
-    
+        if type(var) == dict:
+            return True, blocked_prompts[most_similar_prompt]
+        else:
+            return True, most_similar_prompt
     return False, None
 
 
@@ -568,12 +572,12 @@ if 'section' not in st.session_state:
     st.session_state.section = 'About Me'  
 
 
-api_key = ""
+api_key = "OPENAI_API_KEY"
 openai.api_key = api_key
 
 
-# if not openai.api_key:
-#     st.error("OpenAI API Key not found. Please set the OPENAI_API_KEY environment variable.")
+if not openai.api_key:
+    st.error("OpenAI API Key not found. Please set the OPENAI_API_KEY environment variable.")
 
 # Initialize session state to track the current section
 if 'section' not in st.session_state:
@@ -735,238 +739,8 @@ def side_page():
 
         st.markdown('</div>', unsafe_allow_html=True)
 
-# def render_about_me():
-#     col1, col2, col3 = st.columns([7,1,20])
-#     with col1:
-#         side_page()
-    
-#     with col2:
-#         pass
-#     with col3:
-#         st.title('Hi, I am Vijayram! 👋')
-#         st.write('''
-#     I'm Vijayram Patel, a Master's in Information student at UW-Madison specializing in data engineering and analytics.
-#     I am an AWS certified Data Engineer with professional experience in both research and industry settings, I transform complex data into actionable insights using Python, SQL, AWS, and various data visualization tools.
-#     My expertise spans machine learning, data pipeline development, and business intelligence.
-#         ''')
 
-
-#         st.header("Meet VijBot! 🤖")
-        
-
-#         # Initialize session state for chat history
-#         if "chat_history" not in st.session_state:
-#             st.session_state.chat_history = []
-
-#         if not st.session_state.chat_history:
-#             st.session_state.chat_history.append({
-#             "role": "bot",
-#             "content": "Hi! I'm VijBot, Vijayram's AI assistant. Ask me anything about his skills, experience, projects, or visa status! 🚀"
-#         })
-
-#         # Chat container
-#         chat_container = st.container()
-        
-#         with chat_container:
-#             st.markdown("""
-#             <div class="chatbot-container">
-#                 <div class="chatbot-header">
-#                     <h4>Ask VijBot anything about me!</h4>
-#                 </div>
-#                 </div>
-#             """, unsafe_allow_html=True)
-
-#             st.markdown('<div class="chatbot-messages">', unsafe_allow_html=True)
-
-#             # Add messages with proper alignment
-#             for message in st.session_state.chat_history:
-#                 if message["role"] == "user":
-#                     st.markdown(f'<div class="message-row user-row"><div class="user-message">{message["content"]}</div></div>', unsafe_allow_html=True)
-#                 else:
-#                     st.markdown(f'<div class="message-row bot-row"><div class="bot-message">{message["content"]}</div></div>', unsafe_allow_html=True)
-#             st.markdown('</div>', unsafe_allow_html=True)
-
-#             with st.container():
-#             # Chat UI Styles
-#                 st.markdown("""
-#                 <style>
-#                     /* Main container */
-                            
-#                     .chat-wrapper {
-#                         display: flex;
-#                         flex-direction: column;
-#                         height: 500px;
-#                         position: sticky;
-#                     }
-                            
-#                     .chatbot-header {
-#                         background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-#                         color: #fff;
-#                         padding: 12px 15px;
-#                         border-radius: 14px 14px 0 0;
-#                         position: sticky;
-#                         top: 0;
-#                         z-index: 100;
-#                         flex-shrink: 0;
-#                     }
-                    
-#                     .chat-container {
-#                         background: #1a1a1a;
-#                         border-radius: 14px;
-#                         border: 1px solid #333;
-#                         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-#                         height: 500px;
-#                         display: flex;
-#                         flex-direction: column;
-#                         margin: 1rem 0;
-#                         position: relative;
-#                         overflow: hidden;
-#                     }
-
-#                     /* Header */
-#                     .chat-header {
-#                         background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-#                         color: #fff;
-#                         padding: 16px;
-#                         position: sticky;
-#                         top: 0;
-#                         z-index: 100;
-#                         flex-shrink: 0;
-#                     }
-
-#                     /* Messages container */
-#                     .messages-container {
-#                         flex: 1 1 auto;
-#                         overflow-y: auto;
-#                         padding: 16px;
-#                         display: flex;
-#                         flex-direction: column;
-#                         gap: 12px;
-#                         min-height: 0;
-#                         max-height: calc(500px - 160px);
-#                     }
-
-#                     /* Message rows */
-#                     .message-row {
-#                         display: flex;
-#                         width: 100%;
-#                         flex-shrink: 0;
-#                     }
-
-#                     /* Message bubbles */
-#                     .user-message, .bot-message {
-#                         word-wrap: break-word;
-#                         white-space: pre-wrap;
-#                         overflow-wrap: break-word;
-#                         max-width: 75%;
-#                         padding: 12px 16px;
-#                         margin: 4px 0;
-#                         border-radius: 12px;
-#                         line-height: 1.4;
-#                         box-sizing: border-box;
-#                         hyphens: auto;
-#                         -webkit-hyphens: auto;
-#                         -ms-hyphens: auto;
-#                     }
-
-#                     .user-message {
-#                         background: #2a2a2a;
-#                         color: white;
-#                         margin-left: auto;
-#                         border-radius: 12px 12px 0 12px;
-#                     }
-
-#                     .bot-message {
-#                         background: #2a2a2a;
-#                         color: white;
-#                         margin-right: auto;
-#                         border-radius: 12px 12px 12px 0;
-#                     }
-
-#                     /* Input container */
-#                     .input-container {
-#                         padding: 16px;
-#                         background: #1a1a1a;
-#                         border-top: 1px solid #333;
-#                         position: sticky;
-#                         bottom: 0;
-#                         flex-shrink: 0;
-#                     }
-
-#                     /* Scrollbar styling */
-#                     .messages-container::-webkit-scrollbar {
-#                         width: 8px;
-#                     }
-
-#                     .messages-container::-webkit-scrollbar-track {
-#                         background: #333;
-#                     }
-
-#                     .messages-container::-webkit-scrollbar-thumb {
-#                         background: #FFA500;
-#                         border-radius: 4px;
-#                     }
-
-#                     /* Streamlit overrides */
-#                     .stTextInput input {
-#                         background: #2a2a2a !important;
-#                         color: white !important;
-#                         border-radius: 20px !important;
-#                         padding: 8px 16px !important;
-#                         border: none !important;
-#                     }
-
-#                     .stButton button {
-#                         background: #2a2a2a !important;
-#                         color: white !important;
-#                         border-radius: 50% !important;
-#                         width: 40px !important;
-#                         height: 40px !important;
-#                         padding: 0 !important;
-#                     }
-#                 </style>
-#                 """, unsafe_allow_html=True)
-
-
-
-#         with st.form(key="chat_form", clear_on_submit=True):
-#             st.markdown('<div class="chatbot-container">', unsafe_allow_html=True)
-#             col1, col2 = st.columns([12, 1])
-            
-#             with col1:
-#                 user_input = st.text_input("Type a message...", key="chat_input", label_visibility="collapsed")
-            
-#             with col2:
-#                 submit_button = st.form_submit_button("Send")
-
-            
-        
-            
-#             # Process the input when form is submitted (either by button or Enter key)
-#             if submit_button and user_input.strip():
-#                 # Add user message to history
-#                 st.session_state.chat_history.append({"role": "user", "content": user_input})
-                
-#                 # Get bot response
-#                 # bot_response = ask_bot(user_input)
-#                 bot_response = 'THank you for your question. I will get back to you soon.'
-
-#                 # Add bot response to history
-#                 st.session_state.chat_history.append({"role": "bot", "content": bot_response})
-                
-#                 # Rerun to update the chat display
-#                 if st.session_state.chat_history:
-#                     st.markdown(f"""
-#                         <div id="scroll-container" data-message-count="{len(st.session_state.chat_history)}"></div>
-#                     """, unsafe_allow_html=True)
-
-
-#                 st.rerun()
-
-#             st.markdown('</div>', unsafe_allow_html=True)
-
-
-def ask_bot(input_text):
+def ask_bot(input_text, bio_content):
     try:
         # Initialize client with only the API key from Streamlit secrets
         client = OpenAI(
@@ -1187,9 +961,9 @@ def render_about_me():
             # st.markdown('<div class="input-container" style="padding:0; margin:0; background:white;">', unsafe_allow_html=True)
             col1, col2 = st.columns([16, 1])
             
-            
             with col1:
                 user_input = st.text_input("Message", key=f"chat_input_{st.session_state.message_counter}", label_visibility="collapsed")
+                # print(len((user_input.split(" "))))
             with col2:
                 submit_button = st.form_submit_button("➤")
 
@@ -1204,20 +978,21 @@ def render_about_me():
                 if user_input:
                 # Add user query to chat history
                     st.session_state.chat_history.append({"role": "user", "content": user_input})
-                    
+                    with open("assets/output.txt", "a") as file:
+                        file.write(user_input + "\n")
                     # Check if the prompt is wasteful
-                    vectorizer, tfidf_matrix, corpus = initialize_tfidf_model(blocked_prompts)
-                    ignore, response = is_wasteful_prompt(user_input, vectorizer, tfidf_matrix, corpus, similarity_threshold=0.8)
-                    if ignore:
-                        # If wasteful, use the predefined response
+                    ignore, response = is_wasteful_prompt(user_input, blocked_prompts, similarity_threshold=0.8)
+                    if len(user_input.split(" ")) > 15:
+                        bot_response = "Whoa, that's a long one! A shorter version might help me respond more effectively."
+                    elif ignore:
                         bot_response = response
                     else:
-                        vectorizer, tfidf_matrix, corpus = initialize_tfidf_model(questions)
-                        ignore, response = is_wasteful_prompt(user_input, vectorizer, tfidf_matrix, corpus, similarity_threshold=0.2)
-                        if ignore:
-                            bot_response = 'Thank you for your question. Please ask anything specific to me'
+                        ignore, response = is_wasteful_prompt(user_input, questions, similarity_threshold=0.4)
+                        if not ignore:
+                            bot_response = "I’d be happy to help! Please ask me something specific to my work, projects, or experiences."
                         else:
-                            bot_response = 'Positive'
+                            # bot_response = ask_bot(user_input, bio_content)
+                            bot_response = "Positive"
 
                 # Add bot response to history
                 st.session_state.chat_history.append({"role": "bot", "content": bot_response})
@@ -1231,883 +1006,6 @@ def render_about_me():
                 # Rerun to update the chat display
                 st.rerun()
         
-
-
-            
-
-# def render_about_me():
-#     col1, col2, col3 = st.columns([7,1,20])
-    
-#     with col3:
-#         st.title('Hi, I am Vijayram! 👋')
-#         st.write('''
-#             I'm Vijayram Patel, a Master's in Information student at UW-Madison specializing in data engineering and analytics.
-#             I am an AWS certified Data Engineer with professional experience in both research and industry settings.
-#         ''')
-
-#         st.header("Meet VijBot! 🤖")
-        
-#         # Chat UI Styles
-#         st.markdown("""
-#         <style>
-#             .chat-container {
-#                 background: #1a1a1a;
-#                 border-radius: 14px;
-#                 border: 1px solid #333;
-#                 box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-#                 height: 500px;
-#                 display: flex;
-#                 flex-direction: column;
-#                 margin: 1rem 0;
-#                 position: relative;
-#             }
-
-#             .chat-header {
-#                 background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-#                 color: #fff;
-#                 padding: 16px;
-#                 border-radius: 14px 14px 0 0;
-#                 position: sticky;
-#                 top: 0;
-#                 z-index: 100;
-#                 margin: 0;
-#             }
-
-#             .messages-container {
-#                 flex: 1;
-#                 overflow-y: auto;
-#                 padding: 16px;
-#                 display: flex;
-#                 flex-direction: column;
-#                 gap: 12px;
-#                 min-height: 0;
-#                 max-height: calc(100% - 120px);
-#             }
-
-#             .message-row {
-#                 display: flex;
-#                 width: 100%;
-#                 box-sizing: border-box;
-#             }
-
-#             .user-message, .bot-message {
-#                 word-wrap: break-word;
-#                 white-space: pre-wrap;
-#                 overflow-wrap: anywhere;
-#                 max-width: 75%;
-#                 padding: 12px 16px;
-#                 margin: 4px 0;
-#                 border-radius: 12px;
-#                 line-height: 1.4;
-#                 box-sizing: border-box;
-#             }
-
-#             .user-message {
-#                 background: #2a2a2a;
-#                 color: white;
-#                 margin-left: auto;
-#                 border-radius: 12px 12px 0 12px;
-#             }
-
-#             .bot-message {
-#                 background: #2a2a2a;
-#                 color: white;
-#                 margin-right: auto;
-#                 border-radius: 12px 12px 12px 0;
-#             }
-
-#             .input-container {
-#                 padding: 16px;
-#                 background: #1a1a1a;
-#                 border-top: 1px solid #333;
-#                 position: sticky;
-#                 bottom: 0;
-#             }
-
-#             /* Scrollbar styling */
-#             .messages-container::-webkit-scrollbar {
-#                 width: 8px;
-#             }
-
-#             .messages-container::-webkit-scrollbar-track {
-#                 background: #333;
-#             }
-
-#             .messages-container::-webkit-scrollbar-thumb {
-#                 background: #FFA500;
-#                 border-radius: 4px;
-#             }
-#         </style>
-#         """, unsafe_allow_html=True)
-
-#         # Initialize chat history
-#         if "chat_history" not in st.session_state:
-#             st.session_state.chat_history = [{
-#                 "role": "bot",
-#                 "content": "Hi! I'm VijBot, Vijayram's AI assistant. Ask me anything about his skills, experience, projects, or visa status! 🚀"
-#             }]
-
-#         # Chat container
-#         with st.container():
-#             st.markdown("""
-#             <div class="chat-container">
-#                 <div class="chat-header">
-#                     <h4 style="margin:0; font-weight: 500;">Ask VijBot anything about me!</h4>
-#                 </div>
-#                 <div class="messages-container" id="messages">
-#             """, unsafe_allow_html=True)
-
-#             # Display messages
-#             for message in st.session_state.chat_history:
-#                 if message["role"] == "user":
-#                     st.markdown(
-#                         f'<div class="message-row"><div class="user-message">{message["content"]}</div></div>', 
-#                         unsafe_allow_html=True
-#                     )
-#                 else:
-#                     st.markdown(
-#                         f'<div class="message-row"><div class="bot-message">{message["content"]}</div></div>', 
-#                         unsafe_allow_html=True
-#                     )
-
-#             st.markdown('</div>', unsafe_allow_html=True)  # Close messages-container
-
-#             # Input area
-#             st.markdown('<div class="input-container">', unsafe_allow_html=True)
-#             with st.form(key="chat_form", clear_on_submit=True):
-#                 cols = st.columns([12, 1])
-#                 with cols[0]:
-#                     user_input = st.text_input(
-#                         "Type a message...", 
-#                         key="chat_input", 
-#                         label_visibility="collapsed"
-#                     )
-#                 with cols[1]:
-#                     submit = st.form_submit_button("➤")
-
-#                 if submit and user_input.strip():
-#                     # Add user message
-#                     st.session_state.chat_history.append({
-#                         "role": "user", 
-#                         "content": user_input
-#                     })
-#                     # Add bot response
-#                     st.session_state.chat_history.append({
-#                         "role": "bot",
-#                         "content": "Thank you for your question. I will get back to you soon."
-#                     })
-#                     st.rerun()
-
-#             st.markdown('</div></div>', unsafe_allow_html=True)  # Close containers
-
-
-#         # def ask_bot(input_text):
-#         #     try:
-#         #         # Initialize client with only the API key from Streamlit secrets
-#         #         client = OpenAI(
-#         #             api_key="",
-#         #             base_url="https://api.deepseek.com"  # Explicitly set base URL
-#         #         )
-                
-#         #         response = client.chat.completions.create(
-#         #             model="deepseek-chat",
-#         #             messages=[
-#         #                 {
-#         #                     "role": "system",
-#         #                     "content": f"You are an AI agent named VijBot helping answer questions about Vijayram to recruiters. Here is some information about Vijayram: {bio_content}. If you do not know the answer or not able to answer from provied info, do not make up answers and politely let users know to contact Vijayram on vpatel57@wisc.edu for more information."
-#         #                 },
-#         #                 {"role": "user", "content": input_text}
-#         #             ]
-#         #         )
-#         #         return response.choices[0].message.content
-#         #     except Exception as e:
-#         #         st.error(f"An error occurred: {str(e)}")
-#         #         return "I'm having trouble connecting right now. Please try again later."
-
-
-
-
-# def render_about_me():
-#     col1, col2, col3 = st.columns([7,1,20])
-#     with col1:
-#         side_page()
-    
-#     with col2:
-#         pass
-    
-#     with col3:
-#         st.title('Hi, I am Vijayram! 👋')
-#         st.write('''
-#             I'm Vijayram Patel, a Master's in Information student at UW-Madison specializing in data engineering and analytics.
-#             I am an AWS certified Data Engineer with professional experience in both research and industry settings, I transform complex data into actionable insights using Python, SQL, AWS, and various data visualization tools.
-#             My expertise spans machine learning, data pipeline development, and business intelligence.
-#         ''')
-
-#         st.header("Meet VijBot! 🤖")
-        
-#         st.markdown("""
-#         <style>
-#             .chat-container {
-#                 background: #1a1a1a;
-#                 border-radius: 14px;
-#                 border: 1px solid #333;
-#                 box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-#                 height: 500px;
-#                 display: flex;
-#                 flex-direction: column;
-#             }
-
-#             .chat-header {
-#                 background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-#                 color: #fff;
-#                 padding: 16px;
-#                 border-radius: 14px 14px 0 0;
-#                 position: sticky;
-#                 top: 0;
-#                 z-index: 100;
-#             }
-
-#             .messages-container {
-#                 flex: 1;
-#                 overflow-y: auto;
-#                 padding: 16px;
-#                 display: flex;
-#                 flex-direction: column;
-#                 gap: 12px;
-#             }
-
-#             .message-row {
-#                 display: flex;
-#                 width: 100%;
-#             }
-
-#             .user-message {
-#                 background: #2a2a2a;
-#                 color: white;
-#                 padding: 12px 16px;
-#                 border-radius: 12px 12px 0 12px;
-#                 max-width: 75%;
-#                 margin-left: auto;
-#             }
-
-#             .bot-message {
-#                 background: #2a2a2a;
-#                 color: white;
-#                 padding: 12px 16px;
-#                 border-radius: 12px 12px 12px 0;
-#                 max-width: 75%;
-#                 margin-right: auto;
-#             }
-
-#             .input-container {
-#                 padding: 16px;
-#                 background: #1a1a1a;
-#                 border-top: 1px solid #333;
-#                 position: sticky;
-#                 bottom: 0;
-#             }
-
-#             /* Scrollbar styling */
-#             .messages-container::-webkit-scrollbar {
-#                 width: 8px;
-#             }
-
-#             .messages-container::-webkit-scrollbar-track {
-#                 background: #333;
-#             }
-
-#             .messages-container::-webkit-scrollbar-thumb {
-#                 background: #FFA500;
-#                 border-radius: 4px;
-#             }
-
-#             /* Input field styling */
-#             .stTextInput input {
-#                 background: #2a2a2a !important;
-#                 color: white !important;
-#                 border-radius: 20px !important;
-#                 padding: 8px 16px !important;
-#             }
-#         </style>
-#         """, unsafe_allow_html=True)
-
-#         # Initialize chat history
-#         if "chat_history" not in st.session_state:
-#             st.session_state.chat_history = [{
-#                 "role": "bot",
-#                 "content": "Hi! I'm VijBot, Vijayram's AI assistant. Ask me anything about his skills, experience, projects, or visa status! 🚀"
-#             }]
-
-#         # Chat container
-#         with st.container():
-#             st.markdown("""
-#             <div class="chat-container">
-#                 <div class="chat-header">
-#                     <h4 style="margin:0;">Ask VijBot anything about me!</h4>
-#                 </div>
-#                 <div class="messages-container" id="messages">
-#             """, unsafe_allow_html=True)
-
-#             # Messages
-#             for message in st.session_state.chat_history:
-#                 if message["role"] == "user":
-#                     st.markdown(f'<div class="message-row"><div class="user-message">{message["content"]}</div></div>', 
-#                                unsafe_allow_html=True)
-#                 else:
-#                     st.markdown(f'<div class="message-row"><div class="bot-message">{message["content"]}</div></div>', 
-#                                unsafe_allow_html=True)
-
-#             st.markdown('</div>', unsafe_allow_html=True)  # Close messages-container
-
-#             # Input area
-#             st.markdown('<div class="input-container">', unsafe_allow_html=True)
-#             with st.form(key="chat_form", clear_on_submit=True):
-#                 cols = st.columns([12, 1])
-#                 with cols[0]:
-#                     user_input = st.text_input("Type a message...", 
-#                                             key="chat_input", 
-#                                             label_visibility="collapsed")
-#                 with cols[1]:
-#                     submit = st.form_submit_button("➤")
-
-#                 if submit and user_input.strip():
-#                     # Add messages
-#                     st.session_state.chat_history.append({"role": "user", "content": user_input})
-#                     st.session_state.chat_history.append({"role": "bot", "content": 'Thank you for your question. I will get back to you soon.'})
-#                     st.rerun()
-
-#             st.markdown('</div></div>', unsafe_allow_html=True)  # Close input-container and chat-container
-
-#             # Auto-scroll script
-#             st.markdown("""
-#             <script>
-#                 window.addEventListener('load', function() {
-#                     const container = document.getElementById('messages');
-#                     container.scrollTop = container.scrollHeight;
-#                 });
-                
-#                 const observer = new MutationObserver(function(mutations) {
-#                     mutations.forEach(function(mutation) {
-#                         const container = document.getElementById('messages');
-#                         container.scrollTop = container.scrollHeight;
-#                     });
-#                 });
-                
-#                 observer.observe(document.getElementById('messages'), {
-#                     childList: true,
-#                     subtree: true
-#                 });
-#             </script>
-#             """, unsafe_allow_html=True)
-
-
-# #current
-# # def render_about_me():
-#     col1, col2, col3 = st.columns([7,1,20])
-    
-#     with col3:
-#         st.title('Hi, I am Vijayram! 👋')
-#         st.write('''
-#             I'm Vijayram Patel, a Master's in Information student at UW-Madison specializing in data engineering and analytics.
-#             I am an AWS certified Data Engineer with professional experience in both research and industry settings.
-#         ''')
-
-#         st.header("Meet VijBot! 🤖")
-        
-#         with st.container():
-#             # Chat UI Styles
-#             st.markdown("""
-#             <style>
-#                 /* Main container */
-#                 .chat-container {
-#                     background: #1a1a1a;
-#                     border-radius: 14px;
-#                     border: 1px solid #333;
-#                     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-#                     height: 500px;
-#                     display: flex;
-#                     flex-direction: column;
-#                     margin: 1rem 0;
-#                     position: relative;
-#                     overflow: hidden;
-#                 }
-
-#                 /* Header */
-#                 .chat-header {
-#                     background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-#                     color: #fff;
-#                     padding: 16px;
-#                     position: sticky;
-#                     top: 0;
-#                     z-index: 100;
-#                     flex-shrink: 0;
-#                 }
-
-#                 /* Messages container */
-#                 .messages-container {
-#                     flex: 1 1 auto;
-#                     overflow-y: auto;
-#                     padding: 16px;
-#                     display: flex;
-#                     flex-direction: column;
-#                     gap: 12px;
-#                     min-height: 0;
-#                     max-height: calc(500px - 160px);
-#                 }
-
-#                 /* Message rows */
-#                 .message-row {
-#                     display: flex;
-#                     width: 100%;
-#                     flex-shrink: 0;
-#                 }
-
-#                 /* Message bubbles */
-#                 .user-message, .bot-message {
-#                     word-wrap: break-word;
-#                     white-space: pre-wrap;
-#                     overflow-wrap: break-word;
-#                     max-width: 75%;
-#                     padding: 12px 16px;
-#                     margin: 4px 0;
-#                     border-radius: 12px;
-#                     line-height: 1.4;
-#                     box-sizing: border-box;
-#                     hyphens: auto;
-#                     -webkit-hyphens: auto;
-#                     -ms-hyphens: auto;
-#                 }
-
-#                 .user-message {
-#                     background: #2a2a2a;
-#                     color: white;
-#                     margin-left: auto;
-#                     border-radius: 12px 12px 0 12px;
-#                 }
-
-#                 .bot-message {
-#                     background: #2a2a2a;
-#                     color: white;
-#                     margin-right: auto;
-#                     border-radius: 12px 12px 12px 0;
-#                 }
-
-#                 /* Input container */
-#                 .input-container {
-#                     padding: 16px;
-#                     background: #1a1a1a;
-#                     border-top: 1px solid #333;
-#                     position: sticky;
-#                     bottom: 0;
-#                     flex-shrink: 0;
-#                 }
-
-#                 /* Scrollbar styling */
-#                 .messages-container::-webkit-scrollbar {
-#                     width: 8px;
-#                 }
-
-#                 .messages-container::-webkit-scrollbar-track {
-#                     background: #333;
-#                 }
-
-#                 .messages-container::-webkit-scrollbar-thumb {
-#                     background: #FFA500;
-#                     border-radius: 4px;
-#                 }
-
-#                 /* Streamlit overrides */
-#                 .stTextInput input {
-#                     background: #2a2a2a !important;
-#                     color: white !important;
-#                     border-radius: 20px !important;
-#                     padding: 8px 16px !important;
-#                     border: none !important;
-#                 }
-
-#                 .stButton button {
-#                     background: #2a2a2a !important;
-#                     color: white !important;
-#                     border-radius: 50% !important;
-#                     width: 40px !important;
-#                     height: 40px !important;
-#                     padding: 0 !important;
-#                 }
-#             </style>
-#             """, unsafe_allow_html=True)
-            
-#             # Initialize chat history
-#             if "chat_history" not in st.session_state:
-#                 st.session_state.chat_history = [{
-#                     "role": "bot",
-#                     "content": "Hi! I'm VijBot, Vijayram's AI assistant. Ask me anything about his skills, experience, projects, or visa status! 🚀"
-#                 }]
-
-#             # Starting structure for chat UI - Begin the chat container
-#             st.markdown("""
-#             <div class="chat-container">
-#                 <div class="chat-header">
-#                     <h4 style="margin:0; font-weight: 500;">Ask VijBot anything about me!</h4>
-#                 </div>
-#                 <div class="messages-container" id="messages">
-#             """, unsafe_allow_html=True)
-            
-#             # Display all messages within the container
-#             for message in st.session_state.chat_history:
-#                 if message["role"] == "user":
-#                     st.markdown(
-#                         f'<div class="message-row"><div class="user-message">{message["content"]}</div></div>', 
-#                         unsafe_allow_html=True
-#                     )
-#                 else:
-#                     st.markdown(
-#                         f'<div class="message-row"><div class="bot-message">{message["content"]}</div></div>', 
-#                         unsafe_allow_html=True
-#                     )
-            
-#             # Close the messages container but continue the chat container
-#             st.markdown("""
-#                 </div>
-#             """, unsafe_allow_html=True)
-            
-#             # Add the input container markup directly - within the chat-container
-#             st.markdown('<div class="input-container">', unsafe_allow_html=True)
-            
-#             # Form for input
-#             with st.form(key="chat_form", clear_on_submit=True):
-#                 cols = st.columns([12, 1])
-#                 with cols[0]:
-#                     user_input = st.text_input(
-#                         "Type a message...", 
-#                         key="chat_input", 
-#                         label_visibility="collapsed"
-#                     )
-#                 with cols[1]:
-#                     submit = st.form_submit_button("➤")
-
-#                 if submit and user_input.strip():
-#                     # Add user message
-#                     st.session_state.chat_history.append({
-#                         "role": "user", 
-#                         "content": user_input
-#                     })
-#                     # Add bot response
-#                     st.session_state.chat_history.append({
-#                         "role": "bot",
-#                         "content": "Thank you for your question. I will get back to you soon."
-#                     })
-#                     st.rerun()
-            
-#             # Close the input container and chat container
-#             st.markdown('</div></div>', unsafe_allow_html=True)
-
-#             # Robust auto-scroll JavaScript
-#             st.markdown("""
-#             <script>
-#                 function scrollToBottom() {
-#                     const container = document.getElementById('messages');
-#                     if(container) {
-#                         container.scrollTop = container.scrollHeight;
-#                     }
-#                 }
-                
-#                 const observer = new MutationObserver((mutations) => {
-#                     scrollToBottom();
-#                 });
-                
-#                 // Start observing when container is available
-#                 const initObserver = () => {
-#                     const container = document.getElementById('messages');
-#                     if(container) {
-#                         observer.observe(container, {
-#                             childList: true,
-#                             subtree: true
-#                         });
-#                         scrollToBottom();
-#                     } else {
-#                         setTimeout(initObserver, 100);
-#                     }
-#                 };
-                
-#                 // Initialize on load
-#                 window.addEventListener('load', () => {
-#                     initObserver();
-#                     scrollToBottom();
-#                 });
-                
-#                 // Cleanup observer
-#                 window.addEventListener('beforeunload', () => {
-#                     observer.disconnect();
-#                 });
-#             </script>
-#             """, unsafe_allow_html=True)
-
-
-
-# def render_about_me1():
-#     st.title('Hi, I am Vijayram! 👋')
-#     st.write('''
-#    Hi, I am Vijayram Patel, a Master's in Information (MSI) student at the University of Wisconsin - Madison. I am passionate about analyzing, managing, and visualizing data. I have worked with technologies like Python, PySpark, FastAPI, MySQL, Airflow, PostgreSQL, MongoDB, and C during my bachelor's.
-
-# With 1.2 years of professional experience and over 1 year of internship experience, I have honed my skills in Data Engineering (Python, SQL, SAS). I thrive on transforming raw data into valuable insights that drive decision-making, deciphering data trends, and visualizing information.
-
-# Technical Skills: Python, Spark, SQL, Javascript, C
-# Cloud and Databases: AWS (S3, RDS, DynamoDB, Lambda), GCP, Databricks, Snowflake, SAS (EG, DI, VIYA)
-# Tools and Frameworks: Tableau, Airflow, TensorFlow, Git, PowerBI, PyTorch, Keras, Docker, PL/SQL
-# Expertise Areas: ML, Exploratory Data Analysis, SQL, Python (NumPy, Pandas, Scikit-learn), Tableau, AWS
-#     ''')
-
-
-#     st.header("Meet VijBot! 🤖")
-    
-#     # Add custom CSS for the chatbot
-#     st.markdown("""
-#     <style>
-#         /* Add these styles to your existing CSS */
-                
-                
-#         .chat-wrapper {
-#         display: flex;
-#         flex-direction: column;
-#         background: #121218;
-#         border-radius: 12px;
-#         overflow: hidden;
-#         height: 500px;
-#         max-width: 100%;
-#         margin: 0 auto;
-#         border: 1px solid #2a2a2a;
-#     }
-#         .message-row {
-#             display: flex;
-#             width: 100%;
-#             margin: 4px 0;
-#         }
-
-#         .user-row {
-#             justify-content: flex-end;
-#         }
-
-#         .bot-row {
-#             justify-content: flex-start;
-#         }
-
-#         /* Update these selectors to work with the new structure */
-#         .user-message {
-#             margin-top: 5px;
-#             background: #2a2a2a;
-#             color: #fff;
-#             border-radius: 12px 12px 0 12px;
-#             padding: 10px 14px;
-#             max-width: 75%;
-#             text-align: left;
-#         }
-
-#         .bot-message:{
-#             margin-top: 5px;
-#             background: #2a2a2a;
-#             color: #fff;
-#             border-radius: 12px 12px 0 12px;
-#             padding: 10px 14px;
-#             max-width: 75%;
-#             word-wrap: break-word;
-#         }
-#         .chatbot-container {
-#             background: #1a1a1a;
-#             border: 1px solid #333;
-#             border-radius: 14px;
-#             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-#             # height: 200px;
-#             overflow: hidden;
-#             margin: 0 auto;
-#         }
-
-#         .chatbot-header {
-#             background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-#             color: #fff;
-#             padding: 12px 15px;
-#             border-radius: 14px 14px 0 0;
-#         }
-
-#         .chatbot-messages {
-#         display: flex;
-#         flex-direction: column;
-#         width: 100%;
-#         gap: 12px;  /* Space between messages */
-#         padding: 15px !important;
-#         } 
-                
-#         .chatbot-input {
-#             padding: 12px 15px;
-#             background: #1a1a1a;
-#             border-top: 1px solid #333;
-#         }
-
-#         /* Scrollbar styling */
-#         .chatbot-messages::-webkit-scrollbar {
-#             width: 8px;
-#         }
-
-#         .chatbot-messages::-webkit-scrollbar-track {
-#             background: #333;
-#             border-radius: 4px;
-#         }
-
-#         .chatbot-messages::-webkit-scrollbar-thumb {
-#             background: #FFA500;
-#             border-radius: 4px;
-#         }
-#     </style>
-#     """, unsafe_allow_html=True)
-
-#     # Initialize session state for chat history
-#     if "chat_history" not in st.session_state:
-#         st.session_state.chat_history = []
-
-#     if not st.session_state.chat_history:
-#         st.session_state.chat_history.append({
-#         "role": "bot",
-#         "content": "Hi! I'm VijBot, Vijayram's AI assistant. Ask me anything about his skills, experience, projects, or visa status! 🚀"
-#     })
-
-#     # Chat container
-#     chat_container = st.container(height=280)
-    
-#     with chat_container:
-#         st.markdown("""
-#         <div class="chatbot-container">
-#             <div class="chatbot-header">
-#                 <h4>Ask VijBot anything about me!</h4>
-#             </div>
-#             </div>
-#         """, unsafe_allow_html=True)
-
-#         st.markdown('<div class="chatbot-messages">', unsafe_allow_html=True)
-
-#         # Add messages with proper alignment
-#         for message in st.session_state.chat_history:
-#             if message["role"] == "user":
-#                 st.markdown(f'<div class="message-row user-row"><div class="user-message">{message["content"]}</div></div>', unsafe_allow_html=True)
-#             else:
-#                 st.markdown(f'<div class="message-row bot-row"><div class="bot-message">{message["content"]}</div></div>', unsafe_allow_html=True)
-
-#         # Close the messages container
-#         st.markdown('</div>', unsafe_allow_html=True)
-
-    
-
-
-#     st.markdown("""<style>
-#     /* Reduce padding around the chat input container */
-#     .chat-input-container {
-#         padding-top: 6px !important;
-#         padding-bottom: 6px !important;
-#     }
-    
-#     /* Reduce padding on the form element */
-#     .stForm {
-#         padding-top: 0 !important;
-#         padding-bottom: 0 !important;
-#         margin-top: 0 !important;
-#         margin-bottom: 0 !important;
-#     }
-
-#     /* Reduce padding on the form's inner elements */
-#     .stForm > div {
-#         padding-top: 0 !important;
-#         padding-bottom: 0 !important;
-#         margin-top: 0 !important;
-#         margin-bottom: 0 !important;
-#     }
-
-#     /* Make the input field shorter in height */
-#     .stTextInput input {
-#         padding-top: 6px !important;
-#         padding-bottom: 6px !important;
-#     }
-    
-#     /* Make the send button more compact */
-#     .stButton button {
-#         padding-top: 4px !important;
-#         padding-bottom: 4px !important;
-#         line-height: 1.2 !important;
-#     }
-
-#     /* Reduce padding on main container */
-#     .main .block-container {
-#         padding-top: 10px !important;
-#         padding-bottom: 10px !important;
-#     }
-# </style>
-
-# """, unsafe_allow_html=True)
-    
-
-#     with st.form(key="chat_form", clear_on_submit=True):
-#         st.markdown('<div class=".chatbot-container">', unsafe_allow_html=True)
-#         col1, col2 = st.columns([18, 1])
-        
-#         with col1:
-#             user_input = st.text_input("Type a message...", key="chat_input", label_visibility="collapsed")
-        
-#         with col2:
-#             submit_button = st.form_submit_button("Send")
-
-        
-    
-        
-#         # Process the input when form is submitted (either by button or Enter key)
-#         if submit_button and user_input.strip():
-#             # Add user message to history
-#             st.session_state.chat_history.append({"role": "user", "content": user_input})
-            
-#             # Get bot response
-#             # bot_response = ask_bot(user_input)
-#             bot_response = 'THank you for your question. I will get back to you soon.'
-
-#             # Add bot response to history
-#             st.session_state.chat_history.append({"role": "bot", "content": bot_response})
-            
-#             # Rerun to update the chat display
-#             st.rerun()
-
-#         st.markdown('</div>', unsafe_allow_html=True)
-
-#         if st.session_state.chat_history:
-#             st.markdown(f"""
-#                 <div id="scroll-container" data-message-count="{len(st.session_state.chat_history)}"></div>
-#             """, unsafe_allow_html=True)
-
-    
-
-
-#     # def ask_bot(input_text):
-#     #     try:
-#     #         # Initialize client with only the API key from Streamlit secrets
-#     #         client = OpenAI(
-#     #             api_key="",
-#     #             base_url="https://api.deepseek.com"  # Explicitly set base URL
-#     #         )
-            
-#     #         response = client.chat.completions.create(
-#     #             model="deepseek-chat",
-#     #             messages=[
-#     #                 {
-#     #                     "role": "system",
-#     #                     "content": f"You are an AI agent named VijBot helping answer questions about Vijayram to recruiters. Here is some information about Vijayram: {bio_content}. If you do not know the answer or not able to answer from provied info, do not make up answers and politely let users know to contact Vijayram on vpatel57@wisc.edu for more information."
-#     #                 },
-#     #                 {"role": "user", "content": input_text}
-#     #             ]
-#     #         )
-#     #         return response.choices[0].message.content
-#     #     except Exception as e:
-#     #         st.error(f"An error occurred: {str(e)}")
-#     #         return "I'm having trouble connecting right now. Please try again later."
-
-
-
-
-
-
 
 def render_research_experience():
     col1, col2, col3 = st.columns([7,1,20])
@@ -2413,8 +1311,6 @@ def contact():
             else:
                 st.error("Please fill out all fields before submitting.")
 
-
-# Navigation Bar
 selected_tab = option_menu(
     menu_title=None,
     options=["About Me", "Technical Experience", "Projects", "Resume", "Contact"],
@@ -2424,7 +1320,6 @@ selected_tab = option_menu(
     orientation="horizontal",
 )
 
-# Render sections based on selected tab
 if selected_tab == 'About Me':
     render_about_me()
 elif selected_tab == 'Technical Experience':
@@ -2433,11 +1328,9 @@ elif selected_tab == 'Projects':
     projects()
 elif selected_tab == 'Resume':
     resume_path = "https://drive.google.com/file/d/1J3--91iMHGcoAkTyL1fKN6pz8-Ctqq9u/view?usp=drive_link"
-    # Use webbrowser to open URL in new tab
     import webbrowser
     webbrowser.open_new_tab(resume_path)
     
-    # Display a message to indicate the resume has been opened
     st.info("Opening resume in a new tab. If it doesn't open automatically, [click here](%s)" % resume_path)
     
     # You can also add some minimal content to this tab
