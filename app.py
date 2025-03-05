@@ -744,7 +744,7 @@ def ask_bot(input_text, bio_content):
     try:
         # Initialize client with only the API key from Streamlit secrets
         client = OpenAI(
-            api_key="",
+            api_key="OPENAI_API_KEY",
             base_url="https://api.deepseek.com"  # Explicitly set base URL
         )
         
