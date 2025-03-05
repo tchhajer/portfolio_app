@@ -11,7 +11,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import re
 from pathlib import Path
 import html
-
+import time
 
 # Dictionary of blocked prompts with custom responses
 blocked_prompts = {
@@ -746,7 +746,9 @@ def ask_bot(input_text, bio_content):
             api_key=st.secrets["OPENAI_API_KEY"],
             base_url="https://api.deepseek.com"  # Explicitly set base URL
         )
-        
+        typing_placeholder = st.empty()
+        typing_placeholder.markdown("🤖 VijBot is typing...", unsafe_allow_html=True)
+
         response = client.chat.completions.create(
             model="deepseek-chat",
             messages=[
@@ -762,10 +764,11 @@ def ask_bot(input_text, bio_content):
                 {"role": "user", "content": input_text}
             ]
         )
-        print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
-        print(response.choices[0].message.content)
+        time.sleep(10)
+        typing_placeholder.empty()
         return response.choices[0].message.content
     except Exception as e:
+        typing_placeholder.empty()
         st.error(f"An error occurred: {str(e)}")
         return "I'm having trouble connecting right now. Please try again later."
 
@@ -1003,6 +1006,7 @@ def render_about_me():
                             bot_response = '''I’d be happy to help! Please ask me something specific to my work, projects, or experiences.'''
                         else:
                             bot_response = ask_bot(user_input, bio_content)
+                            
 
                 st.session_state.chat_history.append({"role": "bot", "content": bot_response})
                 st.rerun()
