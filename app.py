@@ -991,8 +991,8 @@ def render_about_me():
                         if not ignore:
                             bot_response = "I’d be happy to help! Please ask me something specific to my work, projects, or experiences."
                         else:
-                            # bot_response = ask_bot(user_input, bio_content)
-                            bot_response = "Positive"
+                            bot_response = ask_bot(user_input, bio_content)
+                            # bot_response = "Positive"
 
                 # Add bot response to history
                 st.session_state.chat_history.append({"role": "bot", "content": bot_response})
