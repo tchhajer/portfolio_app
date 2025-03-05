@@ -572,7 +572,7 @@ if 'section' not in st.session_state:
     st.session_state.section = 'About Me'  
 
 
-api_key = "OPENAI_API_KEY"
+api_key = st.secrets["OPENAI_API_KEY"]
 openai.api_key = api_key
 
 
@@ -744,7 +744,7 @@ def ask_bot(input_text, bio_content):
     try:
         # Initialize client with only the API key from Streamlit secrets
         client = OpenAI(
-            api_key="OPENAI_API_KEY",
+            api_key=st.secrets["OPENAI_API_KEY"],
             base_url="https://api.deepseek.com"  # Explicitly set base URL
         )
         
