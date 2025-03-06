@@ -1339,7 +1339,7 @@ elif selected_tab == 'Technical Experience':
 elif selected_tab == 'Projects':
     projects()
 elif selected_tab == 'Resume':
-    resume_path = "https://drive.google.com/file/d/1J3--91iMHGcoAkTyL1fKN6pz8-Ctqq9u/view?usp=drive_link"
+    resume_path = "https://drive.google.com/file/d/1o8ir0stxEk26neHUrV-jXNC6zee3aIOW/view?usp=drive_link"
     import webbrowser
     webbrowser.open_new_tab(resume_path)
     
