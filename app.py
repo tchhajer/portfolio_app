@@ -12,6 +12,7 @@ import re
 from pathlib import Path
 import html
 import time
+from stored_questions import var
 
 # Dictionary of blocked prompts with custom responses
 blocked_prompts = {
@@ -527,7 +528,7 @@ def preprocess_text(text):
 
 def initialize_tfidf_model(var):
     if type(var) == dict:
-        corpus = list(blocked_prompts.keys())
+        corpus = list(var.keys())
     else:
         corpus = questions
     preprocessed_corpus = [preprocess_text(text) for text in corpus]
@@ -540,10 +541,13 @@ def initialize_tfidf_model(var):
 
 def is_wasteful_prompt(user_input, var, similarity_threshold=0.8):
     vectorizer, tfidf_matrix, corpus = initialize_tfidf_model(var)
-
+    
     processed_input = preprocess_text(user_input).strip()
-    if processed_input in blocked_prompts:
-        return True, blocked_prompts[processed_input]
+    if processed_input in var:
+        if type(var) == dict:
+            return True, var[processed_input]
+        else:
+            return True, processed_input
     
     user_vector = vectorizer.transform([processed_input])
     
@@ -555,7 +559,7 @@ def is_wasteful_prompt(user_input, var, similarity_threshold=0.8):
     if max_similarity >= similarity_threshold:
         most_similar_prompt = corpus[max_similarity_idx]
         if type(var) == dict:
-            return True, blocked_prompts[most_similar_prompt]
+            return True, var[most_similar_prompt]
         else:
             return True, most_similar_prompt
     return False, None
@@ -764,7 +768,6 @@ def ask_bot(input_text, bio_content):
                 {"role": "user", "content": input_text}
             ]
         )
-        time.sleep(10)
         typing_placeholder.empty()
         return response.choices[0].message.content
     except Exception as e:
@@ -823,7 +826,6 @@ def render_about_me():
                 chat_messages_html += f'<div id="{message_id}" class="message-row user-row"><div class="user-message">{html.escape(message["content"])}</div></div>'
             elif message["role"] == "bot":
                 chat_messages_html += format_message("bot",message["content"])
-                print(chat_messages_html)
         
         chat_container = st.container()
         
@@ -993,8 +995,9 @@ def render_about_me():
                 if user_input:
                 # Add user query to chat history
                     st.session_state.chat_history.append({"role": "user", "content": user_input})
-                    with open("assets/output.txt", "a") as file:
-                        file.write(user_input + "\n")
+                    with st.chat_message("user"):
+                        st.markdown(user_input)
+                    
                     ignore, response = is_wasteful_prompt(user_input, blocked_prompts, similarity_threshold=0.8)
                     if len(user_input.split(" ")) > 15:
                         bot_response = "Whoa, that's a long one! A shorter version might help me respond more effectively."
@@ -1005,7 +1008,11 @@ def render_about_me():
                         if not ignore:
                             bot_response = '''I’d be happy to help! Please ask me something specific to my work, projects, or experiences.'''
                         else:
-                            bot_response = ask_bot(user_input, bio_content)
+                            ignore, response = is_wasteful_prompt(user_input, var, similarity_threshold=0.9)
+                            if ignore:
+                                bot_response = response
+                            else:
+                                bot_response = ask_bot(user_input, bio_content)
                             
 
                 st.session_state.chat_history.append({"role": "bot", "content": bot_response})
