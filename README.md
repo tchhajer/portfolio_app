@@ -34,7 +34,7 @@ python app.py
 
 ###2. Access the portfolio via:
 Streamlit Interface: `http://localhost:8501/`
-Navigate through projects, skills, and Q&A sections interactively.
+- Navigate through projects, skills, and Q&A sections interactively.
 
 ```SQl
 Feel free to customize it further with more detailed instructions or add specific sections like **Features**, **Technologies Used**, or **Screenshots** as needed!
