@@ -27,12 +27,12 @@ pip install -r requirements.txt
 
 ## Usage
 
-###1. Start the application:
+### 1. Start the application:
 ```bash
 python app.py
 ```
 
-###2. Access the portfolio via:
+### 2. Access the portfolio via:
 Streamlit Interface: `http://localhost:8501/`
 - Navigate through projects, skills, and Q&A sections interactively.
 
