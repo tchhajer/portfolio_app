@@ -12,7 +12,6 @@ import re
 from pathlib import Path
 import html
 import time
-from stored_questions import var
 
 # Dictionary of blocked prompts with custom responses
 blocked_prompts = {
