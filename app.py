@@ -181,7 +181,7 @@ def projects():
     project_data = [
         {
             "title": "Weld Deformation Simulation",
-            "description": "This project focused on mechanical design and CAD modeling. hckhgfkgfkh gfhghkgvh kvjhvhgvhkgvhkgvkhg vhgvhgvhgvhkg vhgvhgvh vhgvhgvhgvhg vhgvhgvhgvhvhv ghgvhkgfktfhkgch nbvhgkhgcvjhvjhfhkgchkvjchgcjhfkhgvjlhfhkgvjhfhgvljfhghvjlfjhvjhv",
+            "description": "This project focused on welding simulation using Ansys and ESI SysWeld to predict and mitigate weld deformation.",
             "category": "Simulation",
             "image": "assets/images/weld_deformation1.png",
             "github_link": "https://github.com/tchhajer/Weld-Deformation-software-development-and-validation"
