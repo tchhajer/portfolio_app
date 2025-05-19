@@ -21,7 +21,7 @@ def side_page():
         with open(image_path, "rb") as image_file:
             return base64.b64encode(image_file.read()).decode('utf-8')
 
-    img_base64 = get_image_base64("assets/images/photo.png")
+    img_base64 = get_image_base64("assets/images/project1.jpg")
 
     st.markdown("""
     <style>
@@ -173,29 +173,196 @@ def render_research_experience():
             """, unsafe_allow_html=True)
 
 def projects():
-    col1, col2, col3 = st.columns([7,1,20])
-    with col1:
-        side_page()
-    with col3:
-        st.markdown("<h1 style='margin-bottom: 20px;'>Projects</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='margin-bottom: 20px;'>Projects</h1>", unsafe_allow_html=True)
 
-        project_data = [
-            {"title": "Kafka Data Pipeline", "description": "Real Time Analytics"},
-            {"title": "Movie Recommendation System", "description": "NLP and Deep Learning"}
-        ]
+    categories = ["All", "Mechanical", "Design & Fabrication", "Simulation", "Data", "Planning and Optimization"]
+    selected_category = st.radio("Filter by category:", categories, horizontal=True)
 
-        for project in project_data:
-            st.subheader(project["title"])
-            st.write(project["description"])
+    project_data = [
+        {
+            "title": "Weld Deformation Simulation",
+            "description": "This project focused on mechanical design and CAD modeling. hckhgfkgfkh gfhghkgvh kvjhvhgvhkgvhkgvkhg vhgvhgvhgvhkg vhgvhgvh vhgvhgvhgvhg vhgvhgvhgvhvhv ghgvhkgfktfhkgch nbvhgkhgcvjhvjhfhkgchkvjchgcjhfkhgvjlhfhkgvjhfhgvljfhghvjlfjhvjhv",
+            "category": "Simulation",
+            "image": "assets/images/weld_deformation1.png",
+            "github_link": "https://github.com/tchhajer/Weld-Deformation-software-development-and-validation"
+        },
+        {
+            "title": "Mini-Track Loader Platform",
+            "description": "Built a scalable data pipeline using Python and SQL.",
+            "category": "Design & Fabrication",
+            "image": "assets/images/mtl_platform1.png",
+            "github_link": "https://github.com/tchhajer/Platform-for-Mini-Track-Loader"
+        },
+        {
+            "title": "Manufacturing and floor plan optimization",
+            "description": "Madddff",
+            "category": "Planning and Optimization",
+            "image": "assets/images/ISYE_315_1.png",
+            "github_link": "https://github.com/tchhajer/Manufacturing-and-floor-plan-optimization"
+        },
+        {
+            "title": "Plug Plates",
+            "description": "Custom-designed plug plates to improve fixture alignment in weld simulation experiments.",
+            "category": "Design & Fabrication",
+            "image": "assets/images/plugplate.png",
+            "github_link": "https://github.com/tchhajer/Plug-Plates"
+        },
+        {
+            "title": "Table with Saw Cutter Attachment",
+            "description": "Fabricated a heavy-duty table with integrated saw cutter for efficient shop operations.",
+            "category": "Design & Fabrication",
+            "image": "assets/images/newtable.png",
+            "github_link": "https://github.com/tchhajer/Table-with-saw-cutter-attachment"
+        },
+        {
+            "title": "Engine Cherry Picker",
+            "description": "Designed and built a hydraulic engine hoist to assist in engine assembly operations.",
+            "category": "Mechanical",
+            "image": "assets/images/cherry_picker.png",
+            "github_link": "https://github.com/tchhajer/Engine-Cherry-Picker"
+        },
+        {
+            "title": "Work Bench",
+            "description": "A modular and ergonomic workbench designed for welding and assembly line operations.",
+            "category": "Design & Fabrication",
+            "image": "assets/images/workbench.png",
+            "github_link": "https://github.com/tchhajer/Work-Bench"
+        },
+        {
+            "title": "Scrap Tube Storage Cart",
+            "description": "Mobile cart for storing and transporting scrap tubing within the fabrication shop.",
+            "category": "Planning and Optimization",
+            "image": "assets/images/tube_cart.png",
+            "github_link": "https://github.com/tchhajer/Scrap-Tube-storge-cart"
+        },
+        {
+            "title": "Tube Storage Rack",
+            "description": "Fabricated a vertical storage rack for organizing metal tubes in a compact and accessible manner.",
+            "category": "Design & Fabrication",
+            "image": "assets/images/tube_rack.png",
+            "github_link": "https://github.com/tchhajer/Tube-Storage-Rack"
+        },
+        {
+            "title": "Welding Storage Rack",
+            "description": "Designed a heat-resistant storage unit for welding tools and safety equipment near workstations.",
+            "category": "Mechanical",
+            "image": "assets/images/bluco_rack.png",
+            "github_link": "https://github.com/tchhajer/Welding-Storage-Rack"
+        },
+        {
+            "title": "Gear Box",
+            "description": "Developed a compact gearbox unit for industrial automation with integrated bearing and shaft mechanisms.",
+            "category": "Mechanical",
+            "image": "assets/images/placeholder1.jpg",
+            "github_link": "https://github.com/tchhajer/Gear-box"
+        },
+        {
+            "title": "Guide Tool",
+            "description": "Precision tool designed to ensure repeatable alignment during pipe cutting and welding setups.",
+            "category": "Mechanical",
+            "image": "assets/images/guide_tool.png",
+            "github_link": "https://github.com/tchhajer/Guide-tool"
+        },
+        {
+            "title": "Semi-Autonomous Trolley",
+            "description": "Built a sensor-guided cart with limited autonomy for material movement across defined paths.",
+            "category": "Simulation",
+            "image": "assets/images/trolley.png",
+            "github_link": "https://github.com/tchhajer/Semi-Autonomus-Trolley"
+        }
+
+    ]
+
+    if selected_category != "All":
+        project_data = [proj for proj in project_data if proj["category"] == selected_category]
+
+    # Add updated hover CSS
+    st.markdown("""
+        <style>
+            .project-tile {
+                position: relative;
+                width: 100%;
+                height: 260px;
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                margin-bottom: 10px;
+                background-color: #f9f9f9;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .project-tile img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+                transition: 0.3s ease;
+            }
+            .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                opacity: 0;
+                padding: 10px;
+                font-size: 14px;
+                transition: opacity 0.3s ease;
+            }
+            .project-tile:hover .overlay {
+                opacity: 1;
+            }
+            .project-tile:hover img {
+                filter: brightness(40%);
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+    for i in range(0, len(project_data), 4):
+        row_projects = project_data[i:i+4]
+        cols = st.columns(4)
+
+        for col, proj in zip(cols, row_projects):
+            with col:
+                if os.path.exists(proj["image"]):
+                    img_data = base64.b64encode(open(proj["image"], "rb").read()).decode()
+                    st.markdown(f"""
+                        <div class="project-tile">
+                            <a href="{proj['github_link']}" target="_blank">
+                                <img src="data:image/jpeg;base64,{img_data}">
+                                <div class="overlay">{proj['description']}</div>
+                            </a>
+                        </div>
+                        <h4 style="text-align:center;">{proj['title']}</h4>
+                    """, unsafe_allow_html=True)
+                else:
+                    st.warning(f"Image not found: {proj['image']}")
 
 def resume():
-    resume_path = "https://drive.google.com/file/d/1o8ir0stxEk26neHUrV-jXNC6zee3aIOW/view?usp=drive_link"
-    st.markdown(f"""
-        <script>
-            window.open("{resume_path}", "_blank");
-        </script>
-    """, unsafe_allow_html=True)
-    st.info("Opening resume in a new tab. If it doesn't open automatically, [click here](%s)" % resume_path)
+    st.markdown("<h1 style='margin-bottom: 20px;'>Resume</h1>", unsafe_allow_html=True)
+
+    resume_file_path = "assets/resume/resume.pdf"
+
+    # Display PDF inline
+    with open(resume_file_path, "rb") as f:
+        base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+        pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="800" type="application/pdf"></iframe>'
+        st.markdown(pdf_display, unsafe_allow_html=True)
+
+    # Download button
+    with open(resume_file_path, "rb") as f:
+        st.download_button(
+            label="📄 Download Resume",
+            data=f,
+            file_name="resume.pdf",
+            mime="application/pdf"
+        )
 
 def contact():
     col1, col2, col3 = st.columns([7,1,20])
