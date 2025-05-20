@@ -1,0 +1,6 @@
+[theme]
+primaryColor = "#800020"          # burgundy
+backgroundColor = "#0B0C10"       # near-black
+secondaryBackgroundColor = "#1C1C1C"
+textColor = "#E0DCC8"             # soft gold-ish beige
+font = "serif"

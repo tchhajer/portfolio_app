@@ -253,7 +253,7 @@ def projects():
             "title": "Gear Box",
             "description": "Developed a compact gearbox unit for industrial automation with integrated bearing and shaft mechanisms.",
             "category": "Mechanical",
-            "image": "assets/images/placeholder1.jpg",
+            "image": "assets/images/gearbox.png",
             "github_link": "https://github.com/tchhajer/Gear-box"
         },
         {
@@ -269,6 +269,132 @@ def projects():
             "category": "Simulation",
             "image": "assets/images/trolley.png",
             "github_link": "https://github.com/tchhajer/Semi-Autonomus-Trolley"
+        },
+        {
+            "title": "Mobile Test Cart",
+            "description": "Designed a mobile cart to support testing of modular assemblies.",
+            "category": "Design & Fabrication",
+            "image": "assets/images/mobile_cart.jpg",
+            "github_link": "https://github.com/yourusername/Mobile-Test-cart"
+        },
+        {
+            "title": "Modular Data Center Integration Plan",
+            "description": "Outlined system integration strategies for modular data centers.",
+            "category": "Planning and Optimization",
+            "image": "assets/images/integration.jpg",
+            "github_link": "https://github.com/yourusername/Integration-plan-for-Modular-data-center"
+        },
+        {
+            "title": "Trinergy Production Line Setup",
+            "description": "Developed layout and process flow for Trinergy production line.",
+            "category": "Mechanical",
+            "image": "assets/images/trinergy.png",
+            "github_link": "https://github.com/yourusername/trinergy-Production-line-setup"
+        },
+        {
+            "title": "Cycle Time Worker Estimation",
+            "description": "Created an estimator tool for workforce based on cycle time analysis.",
+            "category": "Data",
+            "image": "assets/images/cycle_time.png",
+            "github_link": "https://github.com/yourusername/Worker-estimation-using-cycle-time"
+        },
+        {
+            "title": "Shelf Space Estimator",
+            "description": "Tool for estimating shelf & floor space requirements for storage.",
+            "category": "Planning and Optimization",
+            "image": "assets/images/shelf_estimator.png",
+            "github_link": "https://github.com/yourusername/Floor-and-Shelf-Space-Estimator"
+        },
+        {
+            "title": "Container Lift Solution",
+            "description": "Designed and analyzed container lifting mechanism using FEA.",
+            "category": "Mechanical",
+            "image": "assets/images/shuttlelift.png",
+            "github_link": "https://github.com/yourusername/Container-lift-solution"
+        },
+        {
+            "title": "Overhead Structure Install",
+            "description": "Guided installation methodology for overhead crane support.",
+            "category": "Simulation",
+            "image": "assets/images/ohc.png",
+            "github_link": "https://github.com/yourusername/Over-head-structure-install"
+        },
+        {
+            "title": "Mini Mate Install",
+            "description": "Installation guide for compact Mini-Mate system integration.",
+            "category": "Mechanical",
+            "image": "assets/images/mini_mate_install.png",
+            "github_link": "https://github.com/yourusername/Mini-Mate-Install"
+        },
+        {
+            "title": "Brucha Panel Installation",
+            "description": "Procedure for safe and accurate Brucha panel installation.",
+            "category": "Design & Fabrication",
+            "image": "assets/images/brucha.png",
+            "github_link": "https://github.com/yourusername/Brucha-Panel-installation-method"
+        },
+        {
+            "title": "Family Portrait Metal Art",
+            "description": "Laser-cut metal art designed for a custom family portrait display.",
+            "category": "Design & Fabrication",
+            "image": "assets/images/family_metal_art.jpg",
+            "github_link": "https://github.com/yourusername/Family-Portrait-Metal-Art"
+        },
+        {
+            "title": "Bucky Badger Metal Art",
+            "description": "Creative metal artwork featuring the iconic Bucky Badger design.",
+            "category": "Design & Fabrication",
+            "image": "assets/images/bucky.png",
+            "github_link": "https://github.com/yourusername/Bucky-Badger-metal-art"
+        },
+        {
+            "title": "Formula 1 Metal Art",
+            "description": "High-detail F1 car rendered as decorative metal art.",
+            "category": "Design & Fabrication",
+            "image": "assets/images/f1.png",
+            "github_link": "https://github.com/yourusername/Formula-1-metal-art"
+        },
+        {
+            "title": "Badger Ergonomist",
+            "description": "Conceptual ergonomic tool featuring a Badger mascot—designed for fun and form.",
+            "category": "Mechanical",
+            "image": "assets/images/placeholder1.jpg",
+            "github_link": "https://github.com/yourusername/Badger-ergonomist"
+        },
+        {
+            "title": "Robot Writer",
+            "description": "An automated robot capable of writing messages with mechanical precision.",
+            "category": "Mechanical",
+            "image": "assets/images/placeholder1.jpg",
+            "github_link": "https://github.com/yourusername/Robot-writer"
+        },
+        {
+            "title": "Plug Plate Injection Molding",
+            "description": "Injection molded plate designed for efficient plug mounting and distribution.",
+            "category": "Simulation",
+            "image": "assets/images/placeholder1.jpg",
+            "github_link": "https://github.com/yourusername/Plug-Plate-injection-molding"
+        },
+        {
+            "title": "Drone Design Optimization",
+            "description": "CAD-driven aerodynamic optimization for custom drone frame.",
+            "category": "Simulation",
+            "image": "assets/images/placeholder1.jpg",
+            "github_link": "https://github.com/yourusername/Drone-design-optimization"
+        },
+        {
+            "title": "Carabiner Test",
+            "description": "Stress and fatigue testing on lightweight aluminum carabiner prototypes.",
+            "category": "Mechanical",
+            "image": "assets/images/placeholder1.jpg",
+            "github_link": "https://github.com/yourusername/Carabiner-test"
+        },
+        {
+            "title": "Plastic Spoon Injection Molding",
+            "description": "Modeled and analyzed plastic spoon mold design for mass production.",
+            "category": "Simulation",
+            "image": "assets/images/placeholder1.jpg",
+            "github_link": "https://github.com/yourusername/Plastic-Spoon-Injection-Molding"
         }
 
     ]
