@@ -71,9 +71,9 @@ def render_about_me():
         st.title('Hi, I am Tejas! 👋')
         st.markdown('''
 <div style="text-align: left; font-size: 16px;">
-    <p>I’m a Mechanical Engineer with a strong passion for innovation, efficiency, and strategy. I recently graduated from UW–Madison, where I specialized in manufacturing and operations. Throughout my internships at Doosan Bobcat and Vertiv, I worked on high-impact projects — from streamlining production processes to contributing to executive-level strategy presentations.</p>
-    <p>I enjoy bridging the gap between technical engineering and business strategy. Whether I’m optimizing a paint line workflow, presenting to senior leadership, or mentoring new interns, I bring a can-do spirit and a focus on results.</p>
-    <p>I’m actively seeking full-time roles in manufacturing engineering, operations, or strategy, where I can continue solving real-world problems with creativity and precision.</p>
+    <p>I’m a Mechanical Engineer with a strong passion for innovation, efficiency, and strategy. I recently graduated from UW–Madison, where I specialized in manufacturing and operations. Throughout my internships at Doosan Bobcat and Vertiv, I led high-impact projects, from streamlining production processes using Lean manufacturing and Six Sigma principles to contributing to executive-level strategy presentations through data-driven analysis.</p>
+    <p>I enjoy bridging the gap between technical engineering and business strategy. Whether I’m optimizing a paint line workflow using value stream mapping and time studies, presenting to senior leadership with actionable KPIs, or mentoring new interns on CAD modeling and process documentation, I bring a can-do spirit and a focus on results.</p>
+    <p>I’m actively seeking full-time roles in manufacturing engineering, operations, or strategy, where I can continue solving real world problems with creativity and precision. My technical toolkit includes proficiency in SolidWorks, AutoCAD, FEA, GD&T, ERP systems (like SAP), and continuous improvement methodologies.</p>
 </div>
 ''', unsafe_allow_html=True)
 def render_research_experience():
