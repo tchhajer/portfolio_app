@@ -461,6 +461,15 @@ def resume():
 
     resume_file_path = "assets/resume/resume.pdf"
 
+    # Download button
+    with open(resume_file_path, "rb") as f:
+        st.download_button(
+            label="📄 Download Resume",
+            data=f,
+            file_name="resume.pdf",
+            mime="application/pdf"
+        )
+
     # Display PDF inline
     with open(resume_file_path, "rb") as f:
         base64_pdf = base64.b64encode(f.read()).decode('utf-8')
