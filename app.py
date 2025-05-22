@@ -293,91 +293,77 @@ def projects():
         },
         {
             "title": "Cycle Time Worker Estimation",
-            "description": "Created an estimator tool for workforce based on cycle time analysis.",
+            "description": "Developed an Excel-based tool to estimate workforce needs by analyzing task cycle times, pallet sizes, and daily throughput targets. The tool enabled more accurate labor planning and space allocation by correlating work duration with production schedules. It supported strategic SIOP initiatives, improving floor efficiency and reducing planning uncertainties.",
             "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/cycle_time.png",
             "github_link": "https://github.com/yourusername/Worker-estimation-using-cycle-time"
         },
         {
             "title": "Shelf Space Estimator",
-            "description": "Tool for estimating shelf & floor space requirements for storage.",
+            "description": "description": "Designed an Excel-based tool to calculate total shelf and floor space required for storing Trinergy modules across different stages of production. Factored in pallet dimensions, number of working days per task, and throughput forecasts using SIOP data. This estimator improved layout planning and helped streamline storage logistics within tight facility constraints.",
             "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/shelf_estimator.png",
             "github_link": "https://github.com/yourusername/Floor-and-Shelf-Space-Estimator"
         },
         {
             "title": "Container Lift Solution",
-            "description": "Designed and analyzed container lifting mechanism using FEA.",
+            "description": "Engineered a cost-effective and OSHA-compliant solution for lifting large shipping containers using FEA to validate the structural integrity of the proposed design. The process minimized manual handling, improved safety, and was tailored to work within the facility's existing space constraints, reducing delays and assembly costs.",
             "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/shuttlelift.png",
             "github_link": "https://github.com/yourusername/Container-lift-solution"
         },
         {
             "title": "Overhead Structure Install",
-            "description": "Guided installation methodology for overhead crane support.",
+            "description": "Developed a safe and efficient installation methodology for overhead crane structures supporting modular units. The process was OSHA-compliant, budget-conscious, and strategically designed to navigate existing overhead clearance and space limitations on the production floor.",
             "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/ohc.png",
             "github_link": "https://github.com/yourusername/Over-head-structure-install"
         },
         {
             "title": "Mini Mate Install",
-            "description": "Installation guide for compact Mini-Mate system integration.",
+            "description": "Designed a clear and repeatable installation guide for integrating the Mini-Mate compact cooling system within a constrained workspace. The process improved worker safety, met OSHA guidelines, and minimized setup time, contributing to faster production and reduced labor costs.",
             "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/mini_mate_install.png",
             "github_link": "https://github.com/yourusername/Mini-Mate-Install"
         },
         {
             "title": "Brucha Panel Installation",
-            "description": "Procedure for safe and accurate Brucha panel installation.",
+            "description": "Created an efficient installation method for Brucha wall panels using a fork-mounted jib and suction lifting tools. The technique adhered to OSHA safety standards, optimized labor usage, and addressed spatial limitations in the facility—ultimately streamlining workflow and lowering installation costs.",
             "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/brucha.png",
             "github_link": "https://github.com/yourusername/Brucha-Panel-installation-method"
         },
         {
-            "title": "Family Portrait Metal Art",
-            "description": "Laser-cut metal art designed for a custom family portrait display.",
-            "category": "Design & Fabrication",
-            "image": "assets/images/family_metal_art.jpg",
-            "github_link": "https://github.com/yourusername/Family-Portrait-Metal-Art"
-        },
-        {
-            "title": "Bucky Badger Metal Art",
-            "description": "Creative metal artwork featuring the iconic Bucky Badger design.",
-            "category": "Design & Fabrication",
-            "image": "assets/images/bucky.png",
-            "github_link": "https://github.com/yourusername/Bucky-Badger-metal-art"
-        },
-        {
-            "title": "Formula 1 Metal Art",
-            "description": "High-detail F1 car rendered as decorative metal art.",
+            "title": "Personal Projects",
+            "description": "A variety of hands-on projects including laser-cut metal art pieces such as an F1 car, Bucky Badger, and family portraits. Also includes functional builds like a wood gasification stove, a custom-built coffee table through carpentry, and welded carabiner heart designs—demonstrating practical fabrication skills across metal and wood.",
             "category": "Design & Fabrication",
             "image": "assets/images/f1.png",
-            "github_link": "https://github.com/yourusername/Formula-1-metal-art"
+            "github_link": "https://github.com/yourusername/Personal-Projects"
         },
         {
             "title": "Badger Ergonomist",
-            "description": "Conceptual ergonomic tool featuring a Badger mascot—designed for fun and form.",
+            "description": "Worked as part of a senior design team partnered with Doosan Bobcat to improve ergonomics and material flow on the manufacturing floor. Conducted site assessments and operator interviews to identify inefficiencies at the pound-out table and paint line unload station. Proposed and evaluated multiple solutions using CAD, SolidWorks animations, and Pugh matrices. Final recommendations were aligned with Lean principles and presented to company engineers and management.",
             "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/badgerergo.png",
             "github_link": "https://github.com/yourusername/Badger-ergonomist"
         },
         {
             "title": "Robot Writer",
-            "description": "An automated robot capable of writing messages with mechanical precision.",
+            "description": "Designed and built a compact robotic system capable of writing messages on a white board. Integrated servo motors and linkage-driven arms controlled via programmed coordinates to produce legible outputs. The project combined kinematic analysis, prototyping, and motion control, bridging mechanical design with entry-level automation.",
             "category": "Design & Fabrication",
             "image": "assets/images/robot.jpg",
             "github_link": "https://github.com/yourusername/Robot-writer"
         },
         {
             "title": "Plug Plate Injection Molding",
-            "description": "Injection molded plate designed for efficient plug mounting and distribution.",
+            "description": "Engineered an injection-molded plug plate. The design was optimized using SolidWorks and validated via mold flow simulation and stress analysis to ensure manufacturability, minimal warpage, and longevity under load. Tooling geometry was refined to meet cost and cycle time targets.",
             "category": "FEA & Simulation",
             "image": "assets/images/pluginjection.png",
             "github_link": "https://github.com/yourusername/Plug-Plate-injection-molding"
         },
         {
             "title": "Drone Design Optimization",
-            "description": "CAD-driven aerodynamic optimization for custom drone frame.",
+            "description": "Designed a lightweight, extrudable drone frame optimized through FEA to meet strict deformation limits under multiple loading conditions. Balanced structural strength with material efficiency for manufacturability and performance.",
             "category": "FEA & Simulation",
             "image": "assets/images/drone.png",
             "github_link": "https://github.com/yourusername/Drone-design-optimization"
@@ -391,7 +377,7 @@ def projects():
         },
         {
             "title": "Plastic Spoon Injection Molding",
-            "description": "Modeled and analyzed plastic spoon mold design for mass production.",
+            "description": "Designed and simulated a plastic spoon mold optimized for high-volume production. Analyzed gating, cooling, and ejection systems to ensure minimal warpage, efficient cycle times, and consistent quality.",
             "category": "FEA & Simulation",
             "image": "assets/images/spoon.png",
             "github_link": "https://github.com/yourusername/Plastic-Spoon-Injection-Molding"
