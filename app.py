@@ -175,161 +175,161 @@ def render_research_experience():
 def projects():
     st.markdown("<h1 style='margin-bottom: 20px;'>Projects</h1>", unsafe_allow_html=True)
 
-    categories = ["All", "Mechanical", "Design & Fabrication", "Simulation", "Data", "Planning and Optimization"]
+    categories = ["All", "Design & Fabrication", "FEA & Simulation", "Manufacturing Planning & Optimization"]
     selected_category = st.radio("Filter by category:", categories, horizontal=True)
 
     project_data = [
         {
             "title": "Weld Deformation Simulation",
-            "description": "This project focused on welding simulation using Ansys and ESI SysWeld to predict and mitigate weld deformation.",
-            "category": "Simulation",
+            "description": "Developed and validated a comprehensive welding deformation simulation using Ansys and ESI SysWeld. The project aimed to predict thermal distortion in welded structures and implement mitigation strategies, ultimately reducing post-weld defects and improving part accuracy. Results from simulation were benchmarked against physical measurements to ensure model reliability.",
+            "category": "FEA & Simulation",
             "image": "assets/images/weld_deformation1.png",
             "github_link": "https://github.com/tchhajer/Weld-Deformation-software-development-and-validation"
         },
         {
             "title": "Mini-Track Loader Platform",
-            "description": "Built a scalable data pipeline using Python and SQL.",
+            "description": "Designed and developed a height-adjustable platform for a Mini-Track Loader using a 4-bar linkage suspension system to improve ride comfort and operator ergonomics. The concept, now patent pending, enables smoother operation and greater versatility on job sites.",
             "category": "Design & Fabrication",
             "image": "assets/images/mtl_platform1.png",
             "github_link": "https://github.com/tchhajer/Platform-for-Mini-Track-Loader"
         },
         {
             "title": "Manufacturing and floor plan optimization",
-            "description": "Madddff",
-            "category": "Planning and Optimization",
-            "image": "assets/images/ISYE_315_1.png",
+            "description": "Redesigned the facility layout of Tomahawk Metals using capacity analysis, flow relationship charts, and block diagrams to support 10-year growth projections. Assessed welding insourcing feasibility through sensitivity and payback analysis, and developed optimized floor plans prioritizing safety, efficiency, and sustainability.",
+            "category": "Manufacturing Planning & Optimization",
+            "image": "assets/images/ISYE_315.png",
             "github_link": "https://github.com/tchhajer/Manufacturing-and-floor-plan-optimization"
         },
         {
             "title": "Plug Plates",
-            "description": "Custom-designed plug plates to improve fixture alignment in weld simulation experiments.",
+            "description": "Designed and rapidly prototyped custom plug plates using 3D printing to resolve a critical supply chain issue for a high-profile UPS order. The original component was delayed due to procurement bottlenecks, and the engineered replacement matched the original specifications closely enough to be used in production. This solution helped avoid shipping delays and ensured timely delivery to the customer.",
             "category": "Design & Fabrication",
             "image": "assets/images/plugplate.png",
             "github_link": "https://github.com/tchhajer/Plug-Plates"
         },
         {
             "title": "Table with Saw Cutter Attachment",
-            "description": "Fabricated a heavy-duty table with integrated saw cutter for efficient shop operations.",
+            "description": "Designed and fabricated a heavy-duty worktable with an integrated saw cutter to streamline fabrication tasks. The setup reduced operator walking time, improved safety, and supported 5S implementation by consolidating cutting operations into a dedicated ergonomic station.",
             "category": "Design & Fabrication",
             "image": "assets/images/newtable.png",
             "github_link": "https://github.com/tchhajer/Table-with-saw-cutter-attachment"
         },
         {
             "title": "Engine Cherry Picker",
-            "description": "Designed and built a hydraulic engine hoist to assist in engine assembly operations.",
-            "category": "Mechanical",
+            "description": "Engineered and built a hydraulic cherry picker for safely lifting and maneuvering heavy engine components. This shop-built tool improved assembly ergonomics, minimized manual handling risks, and supported Lean workflow by enabling mobile lifting across stations.",
+            "category": "Design & Fabrication",
             "image": "assets/images/cherry_picker.png",
             "github_link": "https://github.com/tchhajer/Engine-Cherry-Picker"
         },
         {
             "title": "Work Bench",
-            "description": "A modular and ergonomic workbench designed for welding and assembly line operations.",
+            "description": "Designed a modular and ergonomic steel workbench tailored for welding and mechanical assembly. Integrated storage and custom fixturing surfaces supported standardized work, 5S tool organization, and improved posture and productivity for operators.",
             "category": "Design & Fabrication",
             "image": "assets/images/workbench.png",
             "github_link": "https://github.com/tchhajer/Work-Bench"
         },
         {
             "title": "Scrap Tube Storage Cart",
-            "description": "Mobile cart for storing and transporting scrap tubing within the fabrication shop.",
-            "category": "Planning and Optimization",
+            "description": "Fabricated a mobile scrap tube cart to streamline material handling and waste management on the shop floor. Designed with Lean principles in mind, it reduced clutter, enabled point-of-use collection, and contributed to floor space optimization under 5S guidelines.",
+            "category": "Design & Fabrication",
             "image": "assets/images/tube_cart.png",
             "github_link": "https://github.com/tchhajer/Scrap-Tube-storge-cart"
         },
         {
             "title": "Tube Storage Rack",
-            "description": "Fabricated a vertical storage rack for organizing metal tubes in a compact and accessible manner.",
+            "description": "Designed and fabricated a vertical storage rack to organize long metal tubes efficiently while improving shop floor ergonomics. By utilizing unused vertical space, the solution reclaimed valuable floor area, reduced clutter, and enhanced accessibility for operators. The rack was integrated as part of a broader Lean 5S initiative to improve workspace layout and efficiency.",
             "category": "Design & Fabrication",
             "image": "assets/images/tube_rack.png",
             "github_link": "https://github.com/tchhajer/Tube-Storage-Rack"
         },
         {
             "title": "Welding Storage Rack",
-            "description": "Designed a heat-resistant storage unit for welding tools and safety equipment near workstations.",
-            "category": "Mechanical",
+            "description": "Redesigned an improved version of the standard Bluco welding storage rack by incorporating operator feedback. The solution increased available storage space, improved accessibility, and included mobility features for flexible use on the shop floor. The final design was also optimized for ease of fabrication and cost efficiency.",
+            "category": "Design & Fabrication",
             "image": "assets/images/bluco_rack.png",
             "github_link": "https://github.com/tchhajer/Welding-Storage-Rack"
         },
         {
             "title": "Gear Box",
-            "description": "Developed a compact gearbox unit for industrial automation with integrated bearing and shaft mechanisms.",
-            "category": "Mechanical",
+            "description": "Led the design and fatigue analysis of a two-stage reverted speed reducer for a go-kart application. This included gear sizing, material selection, force and stress analysis, and shaft and bearing design. Utilized SolidWorks for CAD modeling and EES for fatigue/life calculations. The final design balanced safety, performance, and manufacturability for high-shock racing conditions.",
+            "category": "Design & Fabrication",
             "image": "assets/images/gearbox.png",
             "github_link": "https://github.com/tchhajer/Gear-box"
         },
         {
             "title": "Guide Tool",
-            "description": "Precision tool designed to ensure repeatable alignment during pipe cutting and welding setups.",
-            "category": "Mechanical",
+            "description": "Developed a precision alignment tool to assist in the assembly of busbars within lithium-ion battery cabinets at Vertiv. Through rapid prototyping and user-driven ergonomic improvements, the 3D-printed tool reduced alignment-related quality defects from 10% to 0%, eliminated rework, and significantly improved workflow efficiency. The tool helped save substantial costs associated with scrap, rework, and production delays.",
+            "category": "Design & Fabrication",
             "image": "assets/images/guide_tool.png",
             "github_link": "https://github.com/tchhajer/Guide-tool"
         },
         {
             "title": "Semi-Autonomous Trolley",
-            "description": "Built a sensor-guided cart with limited autonomy for material movement across defined paths.",
-            "category": "Simulation",
+            "description": "Designed and built a sensor-guided trolley using ultrasonic sensors and autonomy algorithms for path navigation. Engineered a custom 2-speed gearbox—uniquely implemented by our team—enabling seamless switching between high-torque and high-speed modes. This mechanical advantage allowed the trolley to adapt across competition challenges including hill climb, acceleration, speed, and autonomy tests, giving it a performance edge that no other team achieved.",
+            "category": "Design & Fabrication",
             "image": "assets/images/trolley.png",
             "github_link": "https://github.com/tchhajer/Semi-Autonomus-Trolley"
         },
         {
             "title": "Mobile Test Cart",
-            "description": "Designed a mobile cart to support testing of modular assemblies.",
+            "description": "Designed and fabricated a mobile testing cart to streamline the validation of modular electrical assemblies. The cart allowed testing to be conducted directly at storage locations, eliminating the need to transport heavy modules across the facility. This significantly reduced testing time, improved workflow efficiency, and lowered handling costs. Pre-programmed functionality made it operator-friendly and easy to deploy.",
             "category": "Design & Fabrication",
             "image": "assets/images/mobile_cart.jpg",
             "github_link": "https://github.com/yourusername/Mobile-Test-cart"
         },
         {
             "title": "Modular Data Center Integration Plan",
-            "description": "Outlined system integration strategies for modular data centers.",
-            "category": "Planning and Optimization",
+            "description": "Developed a comprehensive AutoCAD-based layout and integration strategy for the production of a large-scale modular data center for a high-profile client. The plan included a detailed work schedule timeline, precise staging area positioning, and a visual installation sequence tailored to a space-constrained environment. The result was an easy-to-follow guide that enabled efficient production execution and seamless coordination across teams.",
+            "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/integration.jpg",
             "github_link": "https://github.com/yourusername/Integration-plan-for-Modular-data-center"
         },
         {
             "title": "Trinergy Production Line Setup",
-            "description": "Developed layout and process flow for Trinergy production line.",
-            "category": "Mechanical",
+            "description": "Created a detailed production line layout for Trinergy UPS systems, focusing on optimizing material flow and space utilization. Conducted in-depth evaluations of module movement paths to minimize handling time and bottlenecks. Proposed and integrated a vertical storage unit into the layout to maximize floor space and support just-in-time accessibility. The finalized plan supported streamlined assembly operations and improved overall shop floor organization.",
+            "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/trinergy.png",
             "github_link": "https://github.com/yourusername/trinergy-Production-line-setup"
         },
         {
             "title": "Cycle Time Worker Estimation",
             "description": "Created an estimator tool for workforce based on cycle time analysis.",
-            "category": "Data",
+            "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/cycle_time.png",
             "github_link": "https://github.com/yourusername/Worker-estimation-using-cycle-time"
         },
         {
             "title": "Shelf Space Estimator",
             "description": "Tool for estimating shelf & floor space requirements for storage.",
-            "category": "Planning and Optimization",
+            "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/shelf_estimator.png",
             "github_link": "https://github.com/yourusername/Floor-and-Shelf-Space-Estimator"
         },
         {
             "title": "Container Lift Solution",
             "description": "Designed and analyzed container lifting mechanism using FEA.",
-            "category": "Mechanical",
+            "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/shuttlelift.png",
             "github_link": "https://github.com/yourusername/Container-lift-solution"
         },
         {
             "title": "Overhead Structure Install",
             "description": "Guided installation methodology for overhead crane support.",
-            "category": "Simulation",
+            "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/ohc.png",
             "github_link": "https://github.com/yourusername/Over-head-structure-install"
         },
         {
             "title": "Mini Mate Install",
             "description": "Installation guide for compact Mini-Mate system integration.",
-            "category": "Mechanical",
+            "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/mini_mate_install.png",
             "github_link": "https://github.com/yourusername/Mini-Mate-Install"
         },
         {
             "title": "Brucha Panel Installation",
             "description": "Procedure for safe and accurate Brucha panel installation.",
-            "category": "Design & Fabrication",
+            "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/brucha.png",
             "github_link": "https://github.com/yourusername/Brucha-Panel-installation-method"
         },
@@ -357,43 +357,43 @@ def projects():
         {
             "title": "Badger Ergonomist",
             "description": "Conceptual ergonomic tool featuring a Badger mascot—designed for fun and form.",
-            "category": "Mechanical",
-            "image": "assets/images/placeholder1.jpg",
+            "category": "Manufacturing Planning & Optimization",
+            "image": "assets/images/badgerergo.png",
             "github_link": "https://github.com/yourusername/Badger-ergonomist"
         },
         {
             "title": "Robot Writer",
             "description": "An automated robot capable of writing messages with mechanical precision.",
-            "category": "Mechanical",
-            "image": "assets/images/placeholder1.jpg",
+            "category": "Design & Fabrication",
+            "image": "assets/images/robot.jpg",
             "github_link": "https://github.com/yourusername/Robot-writer"
         },
         {
             "title": "Plug Plate Injection Molding",
             "description": "Injection molded plate designed for efficient plug mounting and distribution.",
-            "category": "Simulation",
-            "image": "assets/images/placeholder1.jpg",
+            "category": "FEA & Simulation",
+            "image": "assets/images/pluginjection.png",
             "github_link": "https://github.com/yourusername/Plug-Plate-injection-molding"
         },
         {
             "title": "Drone Design Optimization",
             "description": "CAD-driven aerodynamic optimization for custom drone frame.",
-            "category": "Simulation",
-            "image": "assets/images/placeholder1.jpg",
+            "category": "FEA & Simulation",
+            "image": "assets/images/drone.png",
             "github_link": "https://github.com/yourusername/Drone-design-optimization"
         },
         {
             "title": "Carabiner Test",
-            "description": "Stress and fatigue testing on lightweight aluminum carabiner prototypes.",
-            "category": "Mechanical",
-            "image": "assets/images/placeholder1.jpg",
+            "description": "Conducted extensive stress and fatigue testing on lightweight aluminum carabiner prototypes under varied environmental and geometric conditions. Simulated real-world loading scenarios across temperature extremes (hot and cold) and tested multiple size variants to evaluate strength retention, failure modes, and fatigue limits. Results informed design improvements for reliability in dynamic and high-load applications, particularly in safety-critical contexts.",
+            "category": "Design & Fabrication",
+            "image": "assets/images/carabiner.png",
             "github_link": "https://github.com/yourusername/Carabiner-test"
         },
         {
             "title": "Plastic Spoon Injection Molding",
             "description": "Modeled and analyzed plastic spoon mold design for mass production.",
-            "category": "Simulation",
-            "image": "assets/images/placeholder1.jpg",
+            "category": "FEA & Simulation",
+            "image": "assets/images/spoon.png",
             "github_link": "https://github.com/yourusername/Plastic-Spoon-Injection-Molding"
         }
 
