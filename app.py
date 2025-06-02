@@ -205,14 +205,14 @@ def projects():
             "description": "Developed a comprehensive AutoCAD-based layout and integration strategy for the production of a large-scale modular data center for a high-profile client. The plan included a detailed work schedule timeline, precise staging area positioning, and a visual installation sequence tailored to a space-constrained environment. The result was an easy-to-follow guide that enabled efficient production execution and seamless coordination across teams.",
             "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/integration.jpg",
-            "github_link": "https://github.com/yourusername/Integration-plan-for-Modular-data-center"
+            "github_link": "https://github.com/tchhajer/Integration-plan-for-Modular-data-center"
         },
         {
             "title": "Trinergy Production Line Setup",
             "description": "Created a detailed production line layout for Trinergy UPS systems, focusing on optimizing material flow and space utilization. Conducted in-depth evaluations of module movement paths to minimize handling time and bottlenecks. Proposed and integrated a vertical storage unit into the layout to maximize floor space and support just-in-time accessibility. The finalized plan supported streamlined assembly operations and improved overall shop floor organization.",
             "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/trinergy.png",
-            "github_link": "https://github.com/yourusername/trinergy-Production-line-setup"
+            "github_link": "https://github.com/tchhajer/trinergy-Production-line-setup"
         },
         {
             "title": "Plug Plates",
@@ -275,77 +275,77 @@ def projects():
             "description": "Developed a safe and efficient installation methodology for overhead crane structures supporting modular units. The process was OSHA-compliant, budget-conscious, and strategically designed to navigate existing overhead clearance and space limitations on the production floor.",
             "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/ohc.png",
-            "github_link": "https://github.com/yourusername/Over-head-structure-install"
+            "github_link": "https://github.com/tchhajer/Over-head-structure-install"
         },
         {
             "title": "Brucha Panel Installation",
             "description": "Created an efficient installation method for Brucha wall panels using a fork-mounted jib and suction lifting tools. The technique adhered to OSHA safety standards, optimized labor usage, and addressed spatial limitations in the facility—ultimately streamlining workflow and lowering installation costs.",
             "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/brucha.png",
-            "github_link": "https://github.com/yourusername/Brucha-Panel-installation-method"
+            "github_link": "https://github.com/tchhajer/Brucha-Panel-installation-method"
         },
         {
             "title": "Container Lift Solution",
             "description": "Engineered a cost-effective and OSHA-compliant solution for lifting large shipping containers using FEA to validate the structural integrity of the proposed design. The process minimized manual handling, improved safety, and was tailored to work within the facility's existing space constraints, reducing delays and assembly costs.",
             "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/shuttlelift.png",
-            "github_link": "https://github.com/yourusername/Container-lift-solution"
+            "github_link": "https://github.com/tchhajer/Container-lift-solution"
         },
         {
             "title": "Mini Mate Install",
             "description": "Designed a clear and repeatable installation guide for integrating the Mini-Mate compact cooling system within a constrained workspace. The process improved worker safety, met OSHA guidelines, and minimized setup time, contributing to faster production and reduced labor costs.",
             "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/mini_mate_install.png",
-            "github_link": "https://github.com/yourusername/Mini-Mate-Install"
+            "github_link": "https://github.com/tchhajer/Mini-Mate-Install"
         },
         {
             "title": "Cycle Time Worker Estimation",
             "description": "Developed an Excel-based tool to estimate workforce needs by analyzing task cycle times, pallet sizes, and daily throughput targets. The tool enabled more accurate labor planning and space allocation by correlating work duration with production schedules. It supported strategic SIOP initiatives, improving floor efficiency and reducing planning uncertainties.",
             "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/cycle_time.png",
-            "github_link": "https://github.com/yourusername/Worker-estimation-using-cycle-time"
+            "github_link": "https://github.com/tchhajer/Worker-estimation-using-cycle-time"
         },
         {
             "title": "Shelf Space Estimator",
             "description": "Designed an Excel-based tool to calculate total shelf and floor space required for storing Trinergy modules across different stages of production. Factored in pallet dimensions, number of working days per task, and throughput forecasts using SIOP data. This estimator improved layout planning and helped streamline storage logistics within tight facility constraints.",
             "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/shelf_estimator.png",
-            "github_link": "https://github.com/yourusername/Floor-and-Shelf-Space-Estimator"
+            "github_link": "https://github.com/tchhajer/Floor-and-Shelf-Space-Estimator"
         },
         {
             "title": "Mobile Test Cart",
             "description": "Designed and fabricated a mobile testing cart to streamline the validation of modular electrical assemblies. The cart allowed testing to be conducted directly at storage locations, eliminating the need to transport heavy modules across the facility. This significantly reduced testing time, improved workflow efficiency, and lowered handling costs. Pre-programmed functionality made it operator-friendly and easy to deploy.",
             "category": "Design & Fabrication",
             "image": "assets/images/mobile_cart.jpg",
-            "github_link": "https://github.com/yourusername/Mobile-Test-cart"
+            "github_link": "https://github.com/tchhajer/Mobile-Test-cart"
         },
         {
             "title": "Robot Writer",
             "description": "Designed and built a compact robotic system capable of writing messages on a white board. Integrated servo motors and linkage-driven arms controlled via programmed coordinates to produce legible outputs. The project combined kinematic analysis, prototyping, and motion control, bridging mechanical design with entry-level automation.",
             "category": "Design & Fabrication",
             "image": "assets/images/robot.jpg",
-            "github_link": "https://github.com/yourusername/Robot-writer"
+            "github_link": "https://github.com/tchhajer/Robot-writer"
         },
         {
             "title": "Badger Ergonomist",
             "description": "Worked as part of a senior design team partnered with Doosan Bobcat to improve ergonomics and material flow on the manufacturing floor. Conducted site assessments and operator interviews to identify inefficiencies at the pound-out table and paint line unload station. Proposed and evaluated multiple solutions using CAD, SolidWorks animations, and Pugh matrices. Final recommendations were aligned with Lean principles and presented to company engineers and management.",
             "category": "Manufacturing Planning & Optimization",
             "image": "assets/images/badgerergo.png",
-            "github_link": "https://github.com/yourusername/Badger-ergonomist"
+            "github_link": "https://github.com/tchhajer/Badger-ergonomist"
         },  
         {
             "title": "Drone Design Optimization",
             "description": "Designed a lightweight, extrudable drone frame optimized through FEA to meet strict deformation limits under multiple loading conditions. Balanced structural strength with material efficiency for manufacturability and performance.",
             "category": "FEA & Simulation",
             "image": "assets/images/drone.png",
-            "github_link": "https://github.com/yourusername/Drone-design-optimization"
+            "github_link": "https://github.com/tchhajer/Drone-design-optimization"
         },   
         {
             "title": "Personal Projects",
             "description": "A variety of hands-on projects including laser-cut metal art pieces such as an F1 car, Bucky Badger, and family portraits. Also includes functional builds like a wood gasification stove, a custom-built coffee table through carpentry, and welded carabiner heart designs—demonstrating practical fabrication skills across metal and wood.",
             "category": "Design & Fabrication",
             "image": "assets/images/f1.png",
-            "github_link": "https://github.com/yourusername/Personal-Projects"
+            "github_link": "https://github.com/tchhajer/Personal-Projects"
         },         
         {
             "title": "Manufacturing and floor plan optimization",
@@ -366,21 +366,21 @@ def projects():
             "description": "Engineered an injection-molded plug plate. The design was optimized using SolidWorks and validated via mold flow simulation and stress analysis to ensure manufacturability, minimal warpage, and longevity under load. Tooling geometry was refined to meet cost and cycle time targets.",
             "category": "FEA & Simulation",
             "image": "assets/images/pluginjection.png",
-            "github_link": "https://github.com/yourusername/Plug-Plate-injection-molding"
+            "github_link": "https://github.com/tchhajer/Plug-Plate-injection-molding"
         },
         {
             "title": "Plastic Spoon Injection Molding",
             "description": "Designed and simulated a plastic spoon mold optimized for high-volume production. Analyzed gating, cooling, and ejection systems to ensure minimal warpage, efficient cycle times, and consistent quality.",
             "category": "FEA & Simulation",
             "image": "assets/images/spoon.png",
-            "github_link": "https://github.com/yourusername/Plastic-Spoon-Injection-Molding"
+            "github_link": "https://github.com/tchhajer/Plastic-Spoon-Injection-Molding"
         },
         {
             "title": "Carabiner Test",
             "description": "Conducted extensive stress and fatigue testing on lightweight aluminum carabiner prototypes under varied environmental and geometric conditions. Simulated real-world loading scenarios across temperature extremes (hot and cold) and tested multiple size variants to evaluate strength retention, failure modes, and fatigue limits. Results informed design improvements for reliability in dynamic and high-load applications, particularly in safety-critical contexts.",
             "category": "Design & Fabrication",
             "image": "assets/images/carabiner.png",
-            "github_link": "https://github.com/yourusername/Carabiner-test"
+            "github_link": "https://github.com/tchhajer/Carabiner-test"
         },
 
     ]
